@@ -1,6 +1,6 @@
 {% extends "base.html" %} 
 {% load static %}
-{% block work_experience %}
+{% block content %}
 <div class="col-xl-4">
   <div class="row g-4">
     <div class="col-lg-12">
@@ -9,130 +9,22 @@
           <h3 class="card-title">Work Experience</h3>
           <div class="work-experiance-main">
             <ul class="work-experiance-slider list-unstyled">
+              {% for item in work_experience %}
               <li>
                 <div class="date">
-                  <p>2021-2024</p>
+                  <p>{{ item.start_year }} - {{ item.end_year }}</p>
                 </div>
                 <div class="info">
                   <div class="icon">
-                    <img src="{% static 'assets/img/icons/adobe.svg' %}" alt="adobe">
+                    <img src="{% static item.img_link %}" alt="{{ static.name }}">
                   </div>
                   <div class="text">
-                    <h4 class="title">Adobe</h4>
-                    <h6 class="subtitle">Senior UI UX Designer</h6>
+                    <h4 class="title">{{ item.company }}</h4>
+                    <h6 class="subtitle">{{ item.position }}</h6>
                   </div>
                 </div>
               </li>
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/google.svg' %}" alt="google">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Google Inc.
-                    </h4>
-                    <h6 class="subtitle">Senior Product Designer
-
-                    </h6>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/meta.svg' %}" alt="meta">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Meta Inc.
-                    </h4>
-                    <h6 class="subtitle">Product Designer
-                    </h6>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/adobe.svg' %}" alt="adobe">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Adobe</h4>
-                    <h6 class="subtitle">Senior UI UX Designer</h6>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <ul class="work-experiance-slider list-unstyled">
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/adobe.svg' %}" alt="adobe">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Adobe</h4>
-                    <h6 class="subtitle">Senior UI UX Designer</h6>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/google.svg' %}" alt="google">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Google Inc.
-                    </h4>
-                    <h6 class="subtitle">Senior Product Designer
-
-                    </h6>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/meta.svg' %}" alt="meta">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Meta Inc.
-                    </h4>
-                    <h6 class="subtitle">Product Designer
-                    </h6>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="date">
-                  <p>2021-2024</p>
-                </div>
-                <div class="info">
-                  <div class="icon">
-                    <img src="{% static 'assets/img/icons/adobe.svg' %}" alt="adobe">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Adobe</h4>
-                    <h6 class="subtitle">Senior UI UX Designer</h6>
-                  </div>
-                </div>
-              </li>
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -145,66 +37,19 @@
           </h3>
           <div class="expertise-main mt-24">
             <div class="row g-3">
-              <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                <div class="expertise-item">
-                  <div class="image text-center">
-                    <img src="{% static 'assets/img/icons/figma.svg' %}" alt="figma">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Figma</h4>
-                  </div>
+            <!-- 'for' loop to display my skills -->
+            {% for skill in expert_area %}
+            <div class="col-xl-4 col-md-4 col-sm-6 col-6">
+              <div class="expertise-item">
+                <div class="image text-center">
+                  <img src="{% static skill.img_link %}" style="border-radius: 50%;" alt="{{ skill.name }}">
+                </div>
+                <div class="text">
+                  <h4 class="title">{{ skill.name }}</h4>
                 </div>
               </div>
-              <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                <div class="expertise-item">
-                  <div class="image text-center">
-                    <img src="{% static 'assets/img/icons/notion.svg' %}" alt="notion">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Notion</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                <div class="expertise-item">
-                  <div class="image text-center">
-                    <img src="{% static 'assets/img/icons/mico.svg' %}" alt="micro">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Miro</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                <div class="expertise-item">
-                  <div class="image text-center">
-                    <img src="{% static 'assets/img/icons/framer.svg' %}" alt="framer">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Framer</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                <div class="expertise-item">
-                  <div class="image text-center">
-                    <img src="{% static 'assets/img/icons/webflow.svg' %}" alt="webflow">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Webflow</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                <div class="expertise-item">
-                  <div class="image text-center">
-                    <img src="{% static 'assets/img/icons/zeplin.svg' %}" alt="zeplin">
-                  </div>
-                  <div class="text">
-                    <h4 class="title">Zeplin</h4>
-                  </div>
-                </div>
-              </div>
+            </div>
+            {% endfor %} 
             </div>
           </div>
         </div>
@@ -212,14 +57,11 @@
     </div>
   </div>
 </div>
-{% endblock %}
-
-{% block recent_projects %}
 <div class="col-xl-4">
   <div class="card card-projects">
     <div class="card-body">
-
-      <h3 class="card-title">Recent Projects <a class="link-btn" href="portfolio.html">All Projects
+    {% if projects|length > 2 %}
+      <h3 class="card-title">Recent Projects<a class="link-btn" href="portfolio.html">All Projects
           <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M4.16699 10H15.8337" stroke="#4770FF" stroke-width="1.5" stroke-linecap="round"
@@ -228,59 +70,45 @@
               stroke-linejoin="round" />
             <path d="M10.833 5L15.833 10" stroke="#4770FF" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round" />
-          </svg>
-
-        </a></h3>
+          </svg></a>
+      </h3>
+      {% endif %}
       <div class="projects-main mt-24">
         <div class="row g-4 parent-container">
-          <div class="col-lg-12">
-            <div class="project-item">
-              <div class="image">
-                <img src="{% static 'assets/img/projects/project-1.png' %}" alt="project-1" class="img-fluid w-100">
-                <a href="{% static 'assets/img/projects/project-1.png' %}"
-                  class="gallery-popup full-image-preview parent-container">
-                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"
-                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                    <path d="M10 4.167v11.666M4.167 10h11.666"></path>
-                  </svg>
-                </a>
-                <div class="info">
-                  <span class="category">Product Design</span>
+          {% for project in projects %}
+            {% if forloop.counter <= 2 %}
+            <div class="col-lg-12">
+              <div class="project-item">
+                <div class="image">
+                  <img src="{% static 'assets/img/projects/project-1.png' %}" alt="project-1" class="img-fluid w-100">
+                  <a href="{% static 'assets/img/projects/project-1.png' %}"
+                    class="gallery-popup full-image-preview parent-container">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"
+                      stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                      <path d="M10 4.167v11.666M4.167 10h11.666"></path>
+                    </svg>
+                  </a>
+                  <div class="info">
+                    <span class="category">Product Design</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="project-item">
-              <div class="image">
-                <img src="{% static 'assets/img/projects/project-2.png' %}" alt="project-2" class="img-fluid w-100">
-                <a href="{% static 'assets/img/projects/project-2.png' %}"
-                  class="gallery-popup full-image-preview parent-container">
-                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"
-                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                    <path d="M10 4.167v11.666M4.167 10h11.666"></path>
-                  </svg>
-                </a>
-                <div class="info">
-                  <span class="category">Product Design</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}
-{% block services_offered %}
 <div class="services-area mt-24">
   <div class="row g-4">
     <div class="col-xl-8">
       <div class="card services-card">
         <div class="card-body">
           <h3 class="card-title">Services I Offered
-            <a class="link-btn" href="services.html"> See All Services
+            {% if services|length > 4 %}
+            <a class="link-btn" href="{% url 'services' %}"> See All Services
               <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.16699 10H15.8337" stroke="#4770FF" stroke-width="1.5" stroke-linecap="round"
@@ -290,50 +118,23 @@
                 <path d="M10.833 5L15.833 10" stroke="#4770FF" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
-
-            </a></h3>
+            </a>
+            {% endif %}
+          </h3>
           <div class="services-main mt-24">
             <div class="row g-4">
+              {% for service in services %}
               <div class="col-md-3 col-sm-6 col-6">
                 <div class="services-item text-center">
                   <div class="image">
                     <img src="{% static 'assets/img/icons/ui-ux.svg' %}" alt="ui-ux">
                   </div>
                   <div class="text">
-                    <h3 class="title">UI UX Design</h3>
+                    <h3 class="title">{{service.name}}</h3>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6">
-                <div class="services-item text-center">
-                  <div class="image">
-                    <img src="{% static 'assets/img/icons/app.svg' %}" alt="app">
-                  </div>
-                  <div class="text">
-                    <h3 class="title">Mobile App</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-6">
-                <div class="services-item text-center">
-                  <div class="image">
-                    <img src="{% static 'assets/img/icons/prd-design.svg' %}" alt="prd-design">
-                  </div>
-                  <div class="text">
-                    <h3 class="title">Product Design</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-6">
-                <div class="services-item text-center">
-                  <div class="image">
-                    <img src="{% static 'assets/img/icons/branding.svg' %}" alt="branding">
-                  </div>
-                  <div class="text">
-                    <h3 class="title">Branding</h3>
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
