@@ -1,20 +1,10 @@
 from django.shortcuts import render
-from .models import My_expert_area, Work_experience
 
 
 def index(request):
-    skills = My_expert_area.objects.all()
-    experience = Work_experience.objects.all()
-
-    context = {
-       'skills': skills,
-       'work_experience': experience
-    }
-    print(request.path)
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 def about(request):
-    print(request.path)
     return render(request, 'about.html')
 
 def services(request):
