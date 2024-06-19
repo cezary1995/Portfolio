@@ -65,4 +65,3 @@ class OfferedService(models.Model):
 
 class Project(models.Model):
     link = models.CharField(max_length=80, default='link_to_project') 
-
