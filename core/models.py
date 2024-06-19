@@ -33,3 +33,4 @@ class Work_experience(models.Model):
 
     def __str__(self):
         return f"{self.start_year} - {self.end_year} | {self.company} - {self. position}"
+    
