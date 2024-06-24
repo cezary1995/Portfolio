@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MyExpertArea, WorkExperience, SocialMediaLink, OfferedService, Project
+from .models.index import MyExpertArea, WorkExperience, SocialMediaLink, OfferedService, Project
 
 
 def index(request):
