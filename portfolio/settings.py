@@ -33,13 +33,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
+    'apps.PortfolioAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'ckeditor',
+    'ckeditor_uploader',
+    'rosetta',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +71,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'core.context_processors.copy_email',
+                'core.context_processors.context_personal_info',
             ],
         },
     },
@@ -110,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
@@ -128,5 +133,23 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'language': 'en',
+        'toolbar': [
+            {'name': 'basicstyles', 'items': ['Bold', 'Italic']},
+            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList']},
+            {'name': 'insert', 'items': ['Image', 'Link', 'MediaEmbed']},
+            {'name': 'styles', 'items': ['Format']},
+            {'name': 'document', 'items': ['Source']},
+        ],
+    }
+}

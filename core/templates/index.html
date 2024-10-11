@@ -8,7 +8,7 @@
         <div class="card-body work-experiance-card">
           <h3 class="card-title">Work Experience</h3>
           <div class="work-experiance-main">
-            <ul class="work-experiance-slider list-unstyled">
+            <ul class="work-experiance-slider {% if work_experience|length < 3 %}paused{% endif %} list-unstyled">
               {% for item in work_experience %}
               <li>
                 <div class="date">
@@ -21,9 +21,11 @@
                   <div class="text">
                     <h4 class="title">{{ item.company }}</h4>
                     <h6 class="subtitle">{{ item.position }}</h6>
-                  </div>
+                  </div>              
                 </div>
               </li>
+              <p>{{ item.job_description|safe }}</p>
+              <br>
               {% endfor %}
             </ul>
           </div>
@@ -42,7 +44,7 @@
             <div class="col-xl-4 col-md-4 col-sm-6 col-6">
               <div class="expertise-item">
                 <div class="image text-center">
-                  <img src="{% static skill.img_link %}" style="border-radius: 50%;" alt="{{ skill.name }}">
+                  <img src='{{skill.image.url}}' style="border-radius: 50%;" alt="{{ skill.name }}">
                 </div>
                 <div class="text">
                   <h4 class="title">{{ skill.name }}</h4>

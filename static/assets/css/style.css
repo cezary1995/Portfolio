@@ -443,6 +443,13 @@ p {
 	font-weight: 600;
 }
 
+.responsive-image {
+    max-width: 180px;
+    max-height: 250px;
+    width: auto;
+    height: auto;
+}
+
 .common-button-groups {
 	margin-top: 24px;
 }
@@ -643,6 +650,9 @@ p {
 	animation-play-state: paused;
 }
 
+.work-experiance-slider.paused {
+    animation-play-state: paused; /* wstrzymuje animację */
+}
 
 .work-experiance-card .work-experiance-slider li .date {
 	margin-right: 40px;
