@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'core.context_processors.copy_email',
                 'core.context_processors.context_personal_info',
+                'core.context_processors.context_photo',
             ],
         },
     },

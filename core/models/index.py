@@ -141,8 +141,6 @@ class PersonalInfo(models.Model):
     short_desc = RichTextField(
         verbose_name='Short description',
         default='',
-        blank=True,
-        null=True,
     )   
 
     def __str__(self):
