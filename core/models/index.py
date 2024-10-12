@@ -110,28 +110,24 @@ class ProfilePicture(models.Model):
     def clean(self):
         super().clean()  # Call the base class clean() method
 
-        # Możesz dodać jakąkolwiek inną walidację specyficzną dla twojego modelu
-        # np. sprawdzanie czy obraz nie jest za mały
+        # Overload the clean method with own validation
         img = Image.open(self.image)
         if img.height < 50 or img.width < 50:
-            raise ValidationError("Obraz jest zbyt mały. Minimalne wymiary to 50x50 pikseli.")
+            raise ValidationError("Image is too small.")
 
     def save(self, *args, **kwargs):
-        # Jeśli to zdjęcie ma być wyświetlane, wyłącz flagę 'display' dla innych zdjęć
-        if self.display:
-            ProfilePicture.objects.exclude(id=self.id).update(display=False)
 
-        # Zapisz obraz (plik) do bazy danych
+        # Save the imge in db
         super().save(*args, **kwargs)
 
-        # Teraz, po zapisaniu, masz dostęp do pliku obrazu i możesz go modyfikować
+        # Image is available to modify after saving
         img = Image.open(self.image.path)
 
-        # Zmień rozmiar, jeśli jest za duży
+        # Resize image if its too big
         if img.height > 250 or img.width > 180:
             output_size = (180, 250)
             img.thumbnail(output_size, Image.LANCZOS)
-            img.save(self.image.path)  # Zapisz zmodyfikowany obraz
+            img.save(self.image.path)  # Finally save image after modyfications
  
 
 

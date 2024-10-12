@@ -4,5 +4,5 @@ def copy_email(request):
 def context_personal_info(request):
     return {
         'name': 'Cezary Rolka',
-        'desc': 'Python web-developer with 3 years of experience, i like cookies'
+        'desc': 'Python web-developer with 3 years of experience, I like cookies'
             }

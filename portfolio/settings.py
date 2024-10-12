@@ -40,10 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    # 'core',
     'ckeditor',
     'ckeditor_uploader',
     'rosetta',
+    'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
