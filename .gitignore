@@ -15,11 +15,14 @@ env/
 # Text backup files
 *.bak
 
+# Ignore IDE-specific files
+.idea/
+
 # SQLite database
 *.sqlite3
 
 # Media files
-media/
+/media/
 
 # Collected Static files
 /staticfiles/
@@ -32,3 +35,8 @@ media/
 Thumbs.db
 
 # Other or temporary files
+tasks.txt
+
+# Ignore Django migration files
+*/migrations/*.py
+*/migrations/*.pyc
