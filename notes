@@ -1,0 +1,3 @@
+.work-experiance-card .work-experiance-slider {
+	animation: scrollY 10s linear infinite;
+}
