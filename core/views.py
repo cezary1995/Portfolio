@@ -1,4 +1,3 @@
-from core.context_processors import context_personal_info
 from django.shortcuts import render
 from .models.index import (
     MyExpertArea,
@@ -6,8 +5,6 @@ from .models.index import (
     SocialMedia, 
     OfferedService, 
     Project,
-    ProfilePicture,
-    PersonalInfo
 )
 from .models.blog import(
     BlogTitle
@@ -21,15 +18,6 @@ def index(request):
     services = OfferedService.objects.all()
     projects = Project.objects.all()
 
-    # context_data = context_personal_info(request)
-    # default_desc = context_data['desc']
-
-    # Add defalut personal info if it couldn't be get from db or 'desc' field is empty
-    # if not personal_info.short_desc:
-    #     print
-    #     personal_info.short_desc = default_desc
-    #     personal_info.save()
-
     context = {
        'expert_area': expert_area,
        'work_experience': work_experience,
@@ -40,14 +28,27 @@ def index(request):
     
     return render(request, 'index.html', context)
 
+
 def about(request):
     return render(request, 'about.html')
 
+
 def services(request):
-    return render(request, 'services.html')
+    services = OfferedService.objects.all()
+
+    context = {
+       'services': services,
+    }
+    return render(request, 'services.html', context)
+
 
 def works(request):
-    return render(request, 'works.html')
+    projects = Project.objects.all()
+    context = {
+        'projects': projects,
+    }
+    return render(request, 'works.html', context)
+
 
 def blog(request):
     title = BlogTitle.objects.first()
@@ -57,6 +58,7 @@ def blog(request):
     }
 
     return render(request, 'blog.html', context)
+
 
 def contact(request):
     return render(request, 'contact.html')

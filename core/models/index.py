@@ -167,11 +167,6 @@ class SocialMedia(models.Model):
     )
 
 
-    def __str__(self):
-        return self.name
-        # return self.get_name_display()
-    
-
     @classmethod
     def get_instance(cls):
         try:
@@ -184,12 +179,55 @@ class SocialMedia(models.Model):
 
 
 class OfferedService(models.Model):
-    name = models.CharField(max_length=30, help_text='Service name')
-    image = models.ImageField(blank=True)
+    name = models.CharField(
+        verbose_name='Service name',
+        max_length=30,
+    )
+
+    img_link = models.CharField(
+        verbose_name='Path to static file',
+        max_length=100,
+    )
 
     def __str__(self):
         return self.name
         
 
 class Project(models.Model):
-    link = models.CharField(max_length=80, default='link_to_project') 
+    name = models.CharField(
+        verbose_name='Project name',
+        max_length=30,
+    )
+
+    image = models.ImageField(
+        verbose_name='Image',
+        blank=True,
+        null=True,
+        upload_to='uploads/projects',
+        default='',
+    )
+
+    link = models.CharField(
+        verbose_name='link to project',
+        max_length=80, 
+        default='link_to_project',
+        blank=True,
+        null=True,
+    ) 
+
+    def clean(self):
+        super().clean()
+
+        img = Image.open(self.image)
+        if img.height < 50 or img.width < 50:
+            raise ValidationError("Image is too small.")
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 900 or img.width > 1300:
+            output_size = (900, 1300)
+            img.thumbnail(output_size, Image.LANCZOS)
+            img.save(self.image.path)
