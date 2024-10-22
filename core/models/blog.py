@@ -1,12 +1,16 @@
 from django.db import models
 
 class BlogTitle(models.Model):
-    header_title = models.CharField(
+    class Meta:
+        verbose_name = "Blog title"  
+        verbose_name_plural = "Blog title"
+
+    title = models.CharField(
         verbose_name='Header title',
         max_length=60,
     )
 
-    title_description = models.TextField(
+    description = models.TextField(
         verbose_name='Header title',
         max_length=400,
         )

@@ -132,6 +132,10 @@ class ProfilePicture(models.Model):
 
 
 class PersonalInfo(models.Model):
+    class Meta:
+        verbose_name = "Personal info"  
+        verbose_name_plural = "Personal info"
+
     name = models.CharField(
         verbose_name='Name',
         max_length=40,

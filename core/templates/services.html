@@ -6,9 +6,8 @@
     <div class="card-body">
       <div class="top-info">
         <div class="text">
-          <h1 class="main-title">Services I <span>Offered</span></h1>
-          <p>Transforming Ideas into Innovative Reality, Elevate Your Vision with Our Expert <b>Product
-              Design and Development</b> Services!</p>
+          <h1 class="main-title">{{title.title}}</h1>
+          <p>{{title.description}}</p>
         </div>
         <div class="available-btn">
           <span><i class="fas fa-circle"></i> Available For Hire</span>
@@ -35,28 +34,22 @@
         </h2>
         <div class="frequently-asked-questions-main">
           <div class="accordion" id="accordionExample">
+            {% for question in questions %}
             <div class="accordion-item">
               <h4 class="accordion-header" id="headingFive">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                  What does a product designer need to know?
-                  <span class="ms-auto">
-                    <span class="icon ms-4">
-                      <img class="icon-plus" src="assets/img/icons/plus.svg" alt="plus">
-                      <img class="icon-minus d-none" src="assets/img/icons/minus.svg" alt="minus">
-                    </span>
-                  </span>
+                  {{question.question}}
                 </button>
               </h4>
               <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <p>I'm here to help if you're searching for a product designer to bring your idea to life
-                    or
-                    a design partner to help take your business to the next level.</p>
+                  <p>{{question.response}}</p>
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
       </div>

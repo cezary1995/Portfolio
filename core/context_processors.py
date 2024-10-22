@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from .models.index import PersonalInfo, ProfilePicture
 
 def copy_email(request):
@@ -9,16 +10,12 @@ def context_personal_info(request):
     except PersonalInfo.DoesNotExist:
         personal_info = None
 
-    default_data = {'name': 'Cezary Rolka',
-                    'short_desc': 'Python test automation engineer, Sii best worker'
-                    }
     if personal_info:
-        return { 
-            'name': personal_info.name,
-            'short_desc': personal_info.short_desc
-            }
-    else:
-        return default_data
+        return {'name': personal_info.name,
+                'short_desc': personal_info.short_desc}
+
+    return  {'name': 'Cezary Rolka',
+            'short_desc': 'Python test automation engineer, Sii best worker'}
 
 def context_photo(request):
     photo = ProfilePicture.objects.filter(display=True).first()

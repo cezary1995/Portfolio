@@ -1,20 +1,33 @@
 import time
-from django.conf import settings
 from django.contrib import admin
 from .models.index import (
-    MyExpertArea, 
-    WorkExperience, 
-    SocialMedia,  
-    OfferedService, 
-    Project, 
-    ProfilePicture,
+    MyExpertArea, WorkExperience, 
+    SocialMedia, OfferedService, 
+    Project, ProfilePicture,
     PersonalInfo
 )
+from .models.about import(
+    AboutMe, Review
+)
+
 from .models.blog import(
     BlogTitle
 )
 
+from .models.services import(
+    AskedQuestion, ServicesTitle
+)
 
+class SingleInstanceAdmin(admin.ModelAdmin):
+    limit_instance_creation = False 
+
+    def has_add_permission(self, request):
+            # Jeśli jest co najmniej 1 obiekt, wyłącz możliwość dodawania kolejnego
+            if self.limit_instance_creation and self.model.objects.exists():
+                return False
+            return True
+
+# Index
 class ProfilePictureAdmin(admin.ModelAdmin):
     list_display = ('title', 'uploaded_at', 'display')
     list_editable = ('display',)
@@ -32,17 +45,10 @@ class SocialMediaInline(admin.TabularInline):
     can_delete = True  # Ustawienie can_delete na True, aby umożliwić usuwanie
 
 
-class PersonalInfoAdmin(admin.ModelAdmin):
+class PersonalInfoAdmin(SingleInstanceAdmin):
     inlines = [SocialMediaInline] #zarządzanie social mediami z poziomu klasy PersonalInfo
-
-    def has_add_permission(self, request):
-        # Sprawdź, czy istnieje już obiekt w bazie danych
-        count = PersonalInfo.objects.count()
-        if count >= 1:  # Jeśli jest co najmniej 1 obiekt, wyłącz możliwość dodawania kolejnego
-            return False
-        return True
-
-#index
+    limit_instance_creation = True
+   
 admin.site.register(MyExpertArea)
 admin.site.register(WorkExperience)
 admin.site.register(OfferedService)
@@ -50,8 +56,33 @@ admin.site.register(Project)
 admin.site.register(ProfilePicture, ProfilePictureAdmin)
 admin.site.register(PersonalInfo, PersonalInfoAdmin)
 
-#blog
-admin.site.register(BlogTitle)
+
+# About
+class AboutMeAdmin(SingleInstanceAdmin):
+    limit_instance_creation = True
+
+class ReviewAdmin(admin.ModelAdmin):
+    readonly_fields = ('uploaded_at',)
+
+
+admin.site.register(AboutMe, AboutMeAdmin)
+admin.site.register(Review, ReviewAdmin)
+
+
+# Serives 
+class ServicesTitleAdmin(SingleInstanceAdmin):
+   limit_instance_creation = True
+    
+admin.site.register(AskedQuestion)
+admin.site.register(ServicesTitle, ServicesTitleAdmin)
+
+
+# Blog
+class BlogTitleAdmin(SingleInstanceAdmin):
+    limit_instance_creation = True
+
+admin.site.register(BlogTitle, BlogTitleAdmin)
+
 
 
 
