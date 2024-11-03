@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class ServicesTitle(models.Model):
     class Meta:
@@ -10,9 +11,9 @@ class ServicesTitle(models.Model):
         max_length=60,
     )
 
-    description = models.TextField(
+    description = RichTextField(
         verbose_name='Description',
-        max_length=600
+        max_length=1200
     )
 
 class AskedQuestion(models.Model):

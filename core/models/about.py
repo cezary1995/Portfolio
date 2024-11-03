@@ -15,7 +15,7 @@ class AboutMe(models.Model):
 
     content = RichTextField(
         verbose_name='Informations about',
-        max_length=600,
+        max_length=1000,
         )
 
     def __str__(self):
@@ -30,7 +30,6 @@ class Review(models.Model):
 
     rate = models.IntegerField(
         verbose_name='Rate',
-        max_length=40,
         choices=RATES,
     )
 

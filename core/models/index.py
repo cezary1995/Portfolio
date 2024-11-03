@@ -93,7 +93,6 @@ class ProfilePicture(models.Model):
     image = models.ImageField(
         verbose_name='Image',
         upload_to='uploads/profile_pictures',
-        # default='default_img.jpg',
     )
     
     uploaded_at = models.DateTimeField(
@@ -218,6 +217,14 @@ class Project(models.Model):
         blank=True,
         null=True,
     ) 
+
+    description = models.CharField(
+        verbose_name='Project description',
+        max_length=300, 
+        default='project desc',
+        blank=True,
+        null=True,
+    )
 
     def clean(self):
         super().clean()

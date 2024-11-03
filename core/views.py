@@ -34,7 +34,7 @@ def index(request):
 
 
 def about(request):
-    about_me = AboutMe.objects.all()
+    about_me = AboutMe.objects.first() 
     reviews = Review.objects.all()
 
     context = {
