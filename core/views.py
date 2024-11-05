@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from .models.index import (
     MyExpertArea,WorkExperience, 
     SocialMedia, OfferedService, 
@@ -9,7 +10,7 @@ from .models.about import(
 
 )
 from .models.blog import(
-    BlogTitle
+    BlogTitle, BlogArticle
 )
 from .models.services import(
     AskedQuestion, ServicesTitle
@@ -67,9 +68,16 @@ def works(request):
 
 def blog(request):
     title = BlogTitle.objects.first()
+    articles = BlogArticle.objects.all()
+
+    paginator = Paginator(articles, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'title': title,
+        'articles': articles,
+        'page_obj': page_obj,
     }
 
     return render(request, 'blog.html', context)

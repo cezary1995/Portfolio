@@ -23,7 +23,7 @@ def context_personal_info(request):
             data = {'name': 'Cezary Rolka',
                             'short_desc': 'Python test automation engineer, Sii best worker'}
             
-        cache.set(cache_key, data, timeout=20)
+        cache.set(cache_key, data, timeout=2)
 
     return data
 

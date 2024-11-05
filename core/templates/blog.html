@@ -6,32 +6,32 @@
     <div class="card-body portfolio-card">
       <div class="top-info">
         <div class="text">
-          <h1 class="main-title">{{ title.header_title }}</h1>
-          <p>{{ title.title_description }}</p>
+          <h1 class="main-title">{{ title.title }}</h1>
+          <p>{{ title.description }}</p>
         </div>
       </div>
       <div class="article-publications article-area">
         <div class="article-publications-main">
           <div class="row">
-
+            {% for article in articles %}
             <div class="col-xl-6 col-lg-4 col-md-6">
               <div class="article-publications-item">
                 <div class="image">
                   <a href="article.html" class="d-block w-100">
-                    <img src="assets/img/blog/blog-img-6.jpg" alt="blog-img-6" class="img-fluid w-100">
+                    <img src="{{article.image.url}}" alt="blog-img-6" class="img-fluid w-100">
                   </a>
-                  <a href="article.html" class="tags">Development</a>
+                  <a href="article.html" class="tags">{{article.category}}</a>
                 </div>
                 <div class="text">
-                  <a href="article.html" class="title">Want To Upgrade Your Brain? Stop Doing These 7
-                    Things</a>
+                  <a href="article.html" class="title">{{article.title}}</a>
                   <ul class="list-unstyled">
-                    <li>15 min read</li>
-                    <li>Nov 6, 2023</li>
+                    <li>{{article.reading_time}} min read</li>
+                    <li>{{article.uploaded_at}}</li>
                   </ul>
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -49,20 +49,6 @@
           </li>
           <li><button>1</button></li>
           <li><button>2</button></li>
-          <li>
-            <button class="next-page-btn">
-              <span class="dots"><i class="fas fa-ellipsis-h"></i></span>
-              <span class="next-page">
-                <svg class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m6 17 5-5-5-5"></path>
-                  <path d="m13 17 5-5-5-5"></path>
-                </svg>
-              </span>
-              <span class="next-page-number">Next 4 pages</span>
-            </button>
-          </li>
           <li class="next">
             <button>
               <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
