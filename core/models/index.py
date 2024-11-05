@@ -1,5 +1,5 @@
 from django.db import models
-from PIL import Image
+from PIL import Image, ExifTags
 from django.core.exceptions import ValidationError
 from core.utils import ICON_CHOICES
 from django.utils.timezone import now
@@ -122,6 +122,27 @@ class ProfilePicture(models.Model):
         # Image is available to modify after saving
         img = Image.open(self.image.path)
 
+        try:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+            exif = img._getexif()
+            
+            if exif is not None:
+                orientation = exif.get(orientation)
+                
+                # Obracamy obraz zgodnie z wartością EXIF
+                if orientation == 3:
+                    img = img.rotate(180, expand=True)
+                elif orientation == 6:
+                    img = img.rotate(270, expand=True)
+                elif orientation == 8:
+                    img = img.rotate(90, expand=True)
+        except (AttributeError, KeyError, IndexError):
+            # Jeśli obraz nie ma danych EXIF lub wystąpił błąd, po prostu przejdź dalej
+            pass
+
+
         # Resize image if its too big
         if img.height > 250 or img.width > 180:
             output_size = (180, 250)
@@ -222,6 +243,14 @@ class Project(models.Model):
         verbose_name='Project description',
         max_length=300, 
         default='project desc',
+        blank=True,
+        null=True,
+    )
+
+    category = models.CharField(
+        verbose_name='Project category',
+        max_length=40, 
+        default='<category>',
         blank=True,
         null=True,
     )

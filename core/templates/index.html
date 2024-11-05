@@ -63,7 +63,7 @@
   <div class="card card-projects">
     <div class="card-body">
     {% if projects|length > 2 %}
-      <h3 class="card-title">My Projects<a class="link-btn" href="portfolio.html">All Projects
+      <h3 class="card-title">My Projects<a class="link-btn" href="{% url 'works' %}">All Projects
           <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M4.16699 10H15.8337" stroke="#4770FF" stroke-width="1.5" stroke-linecap="round"
@@ -91,7 +91,7 @@
                     </svg>
                   </a>
                   <div class="info">
-                    <span class="category">Product Design</span>
+                    <span class="category">{{project.category}}</span>
                   </div>
                 </div>
               </div>
@@ -148,23 +148,14 @@
           <div class="scrolling-info">
             <div class="slider-item">
               <p>
-                Available For Hire 🚀 Crafting Digital Experiences 🎨 Available For Hire 🚀 Crafting Digital
-                Experiences 🎨
+                Driven by passion, coded with precision 🧑🏻‍💻 Experience the digital world with me! 📱
               </p>
             </div>
           </div>
           <h3 class="card-title">Let's👋
             <span class="d-block">Work Together</span>
           </h3>
-          <a class="link-btn" href="{% url 'contact' %}"> Let's Talk
-            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.5 11.6665V6.6665H12.5" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M17.5 6.6665L10 14.1665L2.5 6.6665" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </a>
+          
         </div>
       </div>
     </div>

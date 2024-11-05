@@ -11,7 +11,7 @@ from .models.about import(
 )
 
 from .models.blog import(
-    BlogTitle
+    BlogTitle, BlogArticle
 )
 
 from .models.services import(
@@ -81,8 +81,11 @@ admin.site.register(ServicesTitle, ServicesTitleAdmin)
 class BlogTitleAdmin(SingleInstanceAdmin):
     limit_instance_creation = True
 
-admin.site.register(BlogTitle, BlogTitleAdmin)
+class BlogArticleAdmin(admin.ModelAdmin):
+    readonly_fields = ('uploaded_at',)
 
+admin.site.register(BlogTitle, BlogTitleAdmin)
+admin.site.register(BlogArticle, BlogArticleAdmin)
 
 
 
