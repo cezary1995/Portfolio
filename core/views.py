@@ -62,18 +62,18 @@ def works(request):
     projects = Project.objects.all()
 
     paginator = Paginator(projects, 1)
-    page_number = request.GET.get('page')
+    page_number = int(request.GET.get('page', 1))
     page_obj = paginator.get_page(page_number)
-    current_page = page_obj.number
-    pages = range(1, paginator.num_pages + 1)
-
     max_page_links = 4
+    start_page = max(page_number - max_page_links // 2, 1)
+    end_page = min(start_page + max_page_links - 1, paginator.num_pages)
+    page_range = range(start_page, end_page + 1)
 
     context = {
         'projects': projects,
         'page_obj': page_obj,
-        'current_page': current_page,
-        'pages': pages
+        'current_page': page_obj.number,
+        'page_range': page_range
     }
     return render(request, 'works.html', context)
 
@@ -82,20 +82,25 @@ def blog(request):
     title = BlogTitle.objects.first()
     articles = BlogArticle.objects.all()
 
+    # Create pagination - 2 obj per page
     paginator = Paginator(articles, 2)
-    page_number = request.GET.get('page')
+    # Get page num from GET param. and set 1 as a default
+    page_number = int(request.GET.get('page', 1))
+    # page_obj is class Page's object returned by method get_page(), contains objects assigned to the page
     page_obj = paginator.get_page(page_number)
-    current_page = page_obj.number
-    pages = range(1, paginator.num_pages + 1)
- 
+    # Set max amount nums per page
+    max_page_links = 4
+    # Declare range of start & end displayed nums
+    start_page = max(page_number - max_page_links // 2, 1)
+    end_page = min(start_page + max_page_links - 1, paginator.num_pages)
+    page_range = range(start_page, end_page + 1)
 
     context = {
         'title': title,
         'articles': articles,
         'page_obj': page_obj,
-        'current_page': current_page,
-        'pages': pages
-
+        'current_page': page_obj.number,
+        'page_range': page_range,
     }
 
     return render(request, 'blog.html', context)

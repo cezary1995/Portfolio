@@ -49,15 +49,14 @@
         </div>
         <div class="pagination">
           <ul class="list-unstyled">
-            {% for num in pages %}
-
+            {% for num in page_range %}
               {% if num == current_page %}
                 <li class="prev">
                   <button>
                     <strong>{{num}}</strong> 
                   </button> 
                 </li>
-                {% else %}
+              {% else %}
                 <li class="next">
                   <a href="?page={{ num }}">
                     <button>
@@ -65,7 +64,7 @@
                     </button>
                   </a>
                 </li>
-                {% endif %}
+              {% endif %}
             {% endfor %}
           </ul>
         </div>
