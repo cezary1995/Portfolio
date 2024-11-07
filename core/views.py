@@ -81,12 +81,15 @@ def works(request):
 def blog(request):
     title = BlogTitle.objects.first()
     articles = BlogArticle.objects.all()
-
+    
     paginator = Paginator(articles, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     current_page = page_obj.number
     pages = range(1, paginator.num_pages + 1)
+    paginator = Paginator(articles, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'title': title,
@@ -94,6 +97,7 @@ def blog(request):
         'page_obj': page_obj,
         'current_page': current_page,
         'pages': pages
+
     }
 
     return render(request, 'blog.html', context)
