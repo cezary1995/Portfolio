@@ -2581,3 +2581,7 @@ p {
 	background-color: var(--primary);
 	color: var(--white);
 }
+
+.full-content {
+    transition: all 0.3s;
+}

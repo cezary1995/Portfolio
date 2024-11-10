@@ -2,20 +2,24 @@ import time
 from django.contrib import admin
 from .models.index import (
     MyExpertArea, WorkExperience, 
-    SocialMedia, OfferedService, 
-    Project, ProfilePicture,
-    PersonalInfo
+    SocialMedia, ProfilePicture, 
+    PersonalInfo  
 )
 from .models.about import(
     AboutMe, Review
 )
-
+from .models.services import(
+    AskedQuestion, Service,
+    ServicesTitle
+)
+from .models.works import(
+    WorksTitle, Project
+)
 from .models.blog import(
     BlogTitle, BlogArticle
 )
-
-from .models.services import(
-    AskedQuestion, ServicesTitle
+from .models.contact import(
+    ContactTitle
 )
 
 class SingleInstanceAdmin(admin.ModelAdmin):
@@ -51,8 +55,6 @@ class PersonalInfoAdmin(SingleInstanceAdmin):
    
 admin.site.register(MyExpertArea)
 admin.site.register(WorkExperience)
-admin.site.register(OfferedService)
-admin.site.register(Project)
 admin.site.register(ProfilePicture, ProfilePictureAdmin)
 admin.site.register(PersonalInfo, PersonalInfoAdmin)
 
@@ -72,9 +74,17 @@ admin.site.register(Review, ReviewAdmin)
 # Serives 
 class ServicesTitleAdmin(SingleInstanceAdmin):
    limit_instance_creation = True
-    
+admin.site.register(Service)    
 admin.site.register(AskedQuestion)
 admin.site.register(ServicesTitle, ServicesTitleAdmin)
+
+
+# Works
+class WorksTitleAdmin(SingleInstanceAdmin):
+   limit_instance_creation = True
+
+admin.site.register(WorksTitle, WorksTitleAdmin)    
+admin.site.register(Project)
 
 
 # Blog
@@ -86,6 +96,14 @@ class BlogArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(BlogTitle, BlogTitleAdmin)
 admin.site.register(BlogArticle, BlogArticleAdmin)
+
+
+# Contact
+class ContactTitleAdmin(SingleInstanceAdmin):
+    limit_instance_creation = True
+
+admin.site.register(ContactTitle, ContactTitleAdmin)
+
 
 
 

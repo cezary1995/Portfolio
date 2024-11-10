@@ -25,7 +25,7 @@ class AboutMe(models.Model):
 class Review(models.Model):
     content = models.TextField(
         verbose_name='Review content',
-        max_length=1000,
+        max_length=3000,
     )
 
     rate = models.IntegerField(
@@ -43,3 +43,8 @@ class Review(models.Model):
         # auto_now_add=True,
         default=now,
     )
+
+    def truncated_content(self):
+        if len(self.content) > 200:
+            return self.content[:200] + '...'
+        return self.content

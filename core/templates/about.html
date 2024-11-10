@@ -24,20 +24,21 @@
                   <i class="fas fa-star"></i>
                   {% endfor %}
                 </div>
-                <div class="website">
-                  <a href="#">Framer.com
-                    <svg class="arrow-up" width="14" height="15" viewBox="0 0 14 15" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.91634 4.5835L4.08301 10.4168" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                      <path d="M4.66699 4.5835H9.91699V9.8335" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    </svg>
-                  </a>
-                </div>
+
               </div>
               <div class="details">
-                <p>{{review.content}}</p>
+                <p class="truncated-content" id="truncated-{{ forloop.counter }}">
+                  {{ review.truncated_content }}
+                  <br>
+                  {% if review.content|length > 400 %}
+                    <button type="button" class="btn btn-dark btn-sm" onclick="toggleContent('{{ forloop.counter }}')">Show more</button>
+                  {% endif %}
+                </p>
+                <p class="full-content" id="full-{{ forloop.counter }}" style="display: none;">
+                  {{ review.content }}
+                  <br>
+                  <button type="button" class="btn btn-dark btn-sm" onclick="toggleContent('{{forloop.counter}}')">Show less</button>
+              </p>
               </div>
               <div class="designation">
                 <p><span>{{review.reviewer}}</span> - Product Designer</p>
@@ -63,4 +64,20 @@
     </div>
   </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  function toggleContent(id) {
+      const truncatedContent = document.getElementById(`truncated-${id}`);
+      const fullContent = document.getElementById(`full-${id}`);
+      
+      if (truncatedContent.style.display === "none") {
+          truncatedContent.style.display = "block";
+          fullContent.style.display = "none";
+      } else {
+          truncatedContent.style.display = "none";
+          fullContent.style.display = "block";
+      }
+  }
+</script>
 {% endblock %}

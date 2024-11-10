@@ -16,6 +16,22 @@ class ServicesTitle(models.Model):
         max_length=1200
     )
 
+
+class Service(models.Model):
+    name = models.CharField(
+        verbose_name='Service name',
+        max_length=30,
+    )
+
+    img_link = models.CharField(
+        verbose_name='Path to static file',
+        max_length=100,
+    )
+
+    def __str__(self):
+        return self.name
+        
+
 class AskedQuestion(models.Model):
     question = models.CharField(
         verbose_name='Asked question',
@@ -29,3 +45,4 @@ class AskedQuestion(models.Model):
 
     def __str__(self):
         return 'question'
+    

@@ -2,25 +2,32 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models.index import (
     MyExpertArea,WorkExperience, 
-    SocialMedia, OfferedService, 
-    Project,
+    SocialMedia,
 )
 from .models.about import(
     AboutMe, Review
-
 )
 from .models.blog import(
     BlogTitle, BlogArticle
 )
 from .models.services import(
-    AskedQuestion, ServicesTitle
+     ServicesTitle, Service,
+     AskedQuestion,
 )
+from .models.works import(
+    WorksTitle, Project
+)
+from .models.contact import(
+    ContactTitle
+)
+
+from .forms import ContactForm
 
 def index(request):
     expert_area = MyExpertArea.objects.all()
     work_experience = WorkExperience.objects.all()
     social_media = SocialMedia.objects.all()
-    services = OfferedService.objects.all()
+    services = Service.objects.all()
     projects = Project.objects.all()
 
     context = {
@@ -46,7 +53,7 @@ def about(request):
 
 
 def services(request):
-    services = OfferedService.objects.all()
+    services = Service.objects.all()
     asked_questions = AskedQuestion.objects.all()
     title = ServicesTitle.objects.first()
 
@@ -59,17 +66,19 @@ def services(request):
 
 
 def works(request):
+    title = WorksTitle.objects.first()
     projects = Project.objects.all()
 
     paginator = Paginator(projects, 1)
     page_number = int(request.GET.get('page', 1))
     page_obj = paginator.get_page(page_number)
-    max_page_links = 4
+    max_page_links = 3
     start_page = max(page_number - max_page_links // 2, 1)
     end_page = min(start_page + max_page_links - 1, paginator.num_pages)
     page_range = range(start_page, end_page + 1)
 
     context = {
+        'title': title,
         'projects': projects,
         'page_obj': page_obj,
         'current_page': page_obj.number,
@@ -89,7 +98,7 @@ def blog(request):
     # page_obj is class Page's object returned by method get_page(), contains objects assigned to the page
     page_obj = paginator.get_page(page_number)
     # Set max amount nums per page
-    max_page_links = 4
+    max_page_links = 3
     # Declare range of start & end displayed nums
     start_page = max(page_number - max_page_links // 2, 1)
     end_page = min(start_page + max_page_links - 1, paginator.num_pages)
@@ -107,4 +116,16 @@ def blog(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    title = ContactTitle.objects.first()
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            email = form.cleaned_data.get("email")
+            message = form.cleaned_data.get("message")
+        message
+    context = {
+        'title': title,
+    }
+    return render(request, 'contact.html', context)
