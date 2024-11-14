@@ -671,9 +671,9 @@ p {
 }
 
 .work-experiance-card .work-experiance-slider li .info .icon {
-	border-radius: 8px;
-	width: 32px;
-	height: 32px;
+	border-radius: 10%;
+	width: 33px;
+	height: 33px;
 	background-color: var(--background);
 	display: flex;
 	justify-content: center;
@@ -681,7 +681,8 @@ p {
 }
 
 .work-experiance-card .work-experiance-slider li .info .icon img {
-	width: 20px;
+	border-radius: 10%;
+	width: 28px;
 }
 
 .work-experiance-card .work-experiance-slider li .info .text .title {
@@ -713,8 +714,9 @@ p {
 }
 
 .expertise-card .expertise-item .image img {
-	width: 32px;
-	height: 32px;
+	width: 39px;
+	height: 39px;
+	border-radius: 50%;
 }
 
 .expertise-card .expertise-item .text .title {

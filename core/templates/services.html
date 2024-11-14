@@ -17,7 +17,7 @@
           <div class="col-md-3 col-sm-6 col-6">
             <div class="services-item text-center">
               <div class="image">
-                <img src="{% static service.img_link %}" alt="ui-ux">
+                <img src="{{ service.image.url }}" alt="{{service.name}}">
               </div>
               <div class="text">
                 <h3 class="title">{{service.name}}</h3>

@@ -13,7 +13,7 @@
       <div class="article-publications article-area">
         <div class="article-publications-main">
           <div class="row">
-            {% for article in page_obj %}
+            {% for article in paginator_data.page_obj %}
             <div class="col-xl-6 col-lg-4 col-md-6">
               <div class="article-publications-item">
                 <div class="image">
@@ -37,8 +37,34 @@
       </div>
       <div class="pagination">
         <ul class="list-unstyled">
-          {% for num in page_range %}
-            {% if num == current_page %}
+          {% if paginator_data.has_prev %}
+            <li class="prev">
+              <a href="?page={{ paginator_data.first }}">
+              <button>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12H21M3 4v16" />
+                </svg>
+            
+              </button>
+              </a>
+            </li>
+            <li class="prev">
+              <a href="?page={{ paginator_data.prev }}">
+                <button>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18">
+                    </path>
+                  </svg>
+                </button>
+              </a>
+            </li>
+            {% endif %}
+          {% for num in paginator_data.page_range %}
+            {% if num == paginator_data.current_page %}
               <li class="prev">
                 <button>
                   <strong>{{num}}</strong> 
@@ -54,6 +80,31 @@
               </li>
             {% endif %}
           {% endfor %}
+          {% if paginator_data.has_next %}
+          <li class="next">
+            <a href="?page={{ paginator_data.next }}">
+              <button>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3">
+                  </path>
+                </svg>
+              </button>
+            </a>
+          </li>
+          <li class="next">
+            <a href="?page={{ paginator_data.last }}">
+              <button>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3M21 4.5v15" />
+                </svg>
+              </button>
+            </a>
+          </li>
+            {% endif %}
         </ul>
       </div>
     </div>

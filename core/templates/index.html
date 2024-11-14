@@ -16,7 +16,7 @@
                 </div>
                 <div class="info">
                   <div class="icon">
-                    <img src="{% static item.img_link %}" alt="{{ static.name }}">
+                    <img src='{{item.image.url}}' alt="{{ static.name }}">
                   </div>
                   <div class="text">
                     <h4 class="title">{{ item.company }}</h4>
@@ -26,7 +26,7 @@
               </li>
               <p>{{ item.job_description|safe }}</p>
               <br>
-              {% endfor %}
+            {% endfor %}
             </ul>
           </div>
         </div>
@@ -39,12 +39,11 @@
           </h3>
           <div class="expertise-main mt-24">
             <div class="row g-3">
-            <!-- 'for' loop to display my skills -->
             {% for skill in expert_area %}
             <div class="col-xl-4 col-md-4 col-sm-6 col-6">
               <div class="expertise-item">
                 <div class="image text-center">
-                  <img src='{{skill.image.url}}' style="border-radius: 50%;" alt="{{ skill.name }}">
+                  <img src='{{ skill.image.url }}' alt="{{ skill.name }}">
                 </div>
                 <div class="text">
                   <h4 class="title">{{ skill.name }}</h4>
@@ -129,7 +128,7 @@
               <div class="col-md-3 col-sm-6 col-6">
                 <div class="services-item text-center">
                   <div class="image">
-                    <img src="{% static service.img_link %}" alt="ui-ux">
+                    <img src="{{ service.image.url }}" alt="{{service.name}}">
                   </div>
                   <div class="text">
                     <h3 class="title">{{service.name}}</h3>
@@ -155,7 +154,6 @@
           <h3 class="card-title">Let's👋
             <span class="d-block">Work Together</span>
           </h3>
-          
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% load static %}
+
 {% block content %}
 <div class="col-xl-8">
   <div class="card content-box-card">
@@ -13,43 +14,37 @@
       <div class="contact-area">
         <div class="leave-comments-area">
           <div class="comments-box">
-            <form id="contact-form" action="assets/mail.php" method="POST">
+            <form id="contact-form"  method="POST">
+              {% csrf_token %}
               <div class="row gx-3">
                 <div class="col-md-6">
                   <div class="mb-4">
-                    <label class="form-label">Name</label>
-                    <input name="name" required type="text" class="form-control shadow-none" placeholder="Enter your name">
+                    <label class="form-label">Name*</label>
+                    {{ form.name }}
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-4">
-                    <label class="form-label">Email</label>
-                    <input name="email" required type="email" class="form-control shadow-none" placeholder="Enter your email">
+                    <label class="form-label">Email*</label>
+                    {{ form.email }}
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-4">
-                    <label class="form-label">Subject</label>
-                    <input name="subject" required type="text" class="form-control shadow-none" placeholder="Subject">
+                    <label class="form-label">Subject*</label>
+                    {{ form.subject }}
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-4">
-                    <label class="form-label">Budget</label>
-                    <select name="budget" required class="form-select shadow-none">
-                      <option disabled selected>Select budget...</option>
-                      <option value="$5000">$5000</option>
-                      <option value="$5000 - $1000">$5000 - $10000</option>
-                      <option value="$10000 - $2000">$10000 - $20000</option>
-                      <option value="$20000">$20000+</option>
-                    </select>
+                    <label class="form-label">Phone number</label>
+                    {{ form.phone }}
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="mb-4">
-                    <label class="form-label">Comment</label>
-                    <textarea name="message" class="form-control shadow-none" rows="4"
-                      placeholder="Type details about your inquiry"></textarea>
+                    <label class="form-label">Content</label>
+                    {{ form.message}}
                   </div>
                 </div>
                 <div class="col-md-12">

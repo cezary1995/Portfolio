@@ -23,9 +23,12 @@ class Service(models.Model):
         max_length=30,
     )
 
-    img_link = models.CharField(
-        verbose_name='Path to static file',
-        max_length=100,
+    image = models.FileField(
+        verbose_name='SVG file',
+        upload_to='uploads/svgs',
+        blank=True,
+        null=True,
+        default=''
     )
 
     def __str__(self):

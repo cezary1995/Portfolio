@@ -19,7 +19,7 @@ from .models.blog import(
     BlogTitle, BlogArticle
 )
 from .models.contact import(
-    ContactTitle
+    ContactTitle, UserMessage
 )
 
 class SingleInstanceAdmin(admin.ModelAdmin):
@@ -102,7 +102,11 @@ admin.site.register(BlogArticle, BlogArticleAdmin)
 class ContactTitleAdmin(SingleInstanceAdmin):
     limit_instance_creation = True
 
+class UserMessageAdmin(admin.ModelAdmin):
+    readonly_fields = ('name', 'email', 'phone', 'created_at')
+
 admin.site.register(ContactTitle, ContactTitleAdmin)
+admin.site.register(UserMessage, UserMessageAdmin)
 
 
 

@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from .utils import get_paginator_data
 from .models.index import (
     MyExpertArea,WorkExperience, 
     SocialMedia,
@@ -21,7 +22,7 @@ from .models.contact import(
     ContactTitle
 )
 
-from .forms import ContactForm
+from .forms import UserMessageForm
 
 def index(request):
     expert_area = MyExpertArea.objects.all()
@@ -37,7 +38,6 @@ def index(request):
        'services': services,
        'projects': projects,
     }
-    
     return render(request, 'index.html', context)
 
 
@@ -53,10 +53,10 @@ def about(request):
 
 
 def services(request):
+    title = ServicesTitle.objects.first()
     services = Service.objects.all()
     asked_questions = AskedQuestion.objects.all()
-    title = ServicesTitle.objects.first()
-
+    
     context = {
        'services': services,
        'questions': asked_questions,
@@ -69,20 +69,13 @@ def works(request):
     title = WorksTitle.objects.first()
     projects = Project.objects.all()
 
-    paginator = Paginator(projects, 1)
-    page_number = int(request.GET.get('page', 1))
-    page_obj = paginator.get_page(page_number)
-    max_page_links = 3
-    start_page = max(page_number - max_page_links // 2, 1)
-    end_page = min(start_page + max_page_links - 1, paginator.num_pages)
-    page_range = range(start_page, end_page + 1)
+    # Pagination
+    paginator_data = get_paginator_data(request=request, query_set=projects, obj_per_page=1, max_page_links=3)
 
     context = {
         'title': title,
         'projects': projects,
-        'page_obj': page_obj,
-        'current_page': page_obj.number,
-        'page_range': page_range
+        'paginator_data': paginator_data
     }
     return render(request, 'works.html', context)
 
@@ -90,28 +83,15 @@ def works(request):
 def blog(request):
     title = BlogTitle.objects.first()
     articles = BlogArticle.objects.all()
-
-    # Create pagination - 2 obj per page
-    paginator = Paginator(articles, 2)
-    # Get page num from GET param. and set 1 as a default
-    page_number = int(request.GET.get('page', 1))
-    # page_obj is class Page's object returned by method get_page(), contains objects assigned to the page
-    page_obj = paginator.get_page(page_number)
-    # Set max amount nums per page
-    max_page_links = 3
-    # Declare range of start & end displayed nums
-    start_page = max(page_number - max_page_links // 2, 1)
-    end_page = min(start_page + max_page_links - 1, paginator.num_pages)
-    page_range = range(start_page, end_page + 1)
+    
+    # Pagination
+    paginator_data = get_paginator_data(request=request, query_set=articles, obj_per_page=2, max_page_links=3)
 
     context = {
         'title': title,
         'articles': articles,
-        'page_obj': page_obj,
-        'current_page': page_obj.number,
-        'page_range': page_range,
+        'paginator_data': paginator_data
     }
-
     return render(request, 'blog.html', context)
 
 
@@ -119,13 +99,14 @@ def contact(request):
     title = ContactTitle.objects.first()
 
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = UserMessageForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data.get("name")
-            email = form.cleaned_data.get("email")
-            message = form.cleaned_data.get("message")
-        message
+            form.save()
+            return redirect('contact')
+    else:
+        form = UserMessageForm()
     context = {
         'title': title,
+        'form': form,
     }
     return render(request, 'contact.html', context)

@@ -59,9 +59,12 @@ class WorkExperience(models.Model):
         help_text='The position I worked at',
     )
 
-    img_link = models.CharField(
-        verbose_name='IMG_link',
-        max_length=80,
+    image = models.ImageField(
+        verbose_name='Image',
+        blank=True,
+        null=True,
+        upload_to='uploads/icons',
+        default='',
     )
 
     job_description = RichTextField(
@@ -97,7 +100,6 @@ class ProfilePicture(models.Model):
     
     uploaded_at = models.DateTimeField(
         verbose_name='Uploaded at',
-        # auto_now_add=True,
         default=now,
     )
 
@@ -147,7 +149,7 @@ class ProfilePicture(models.Model):
         if img.height > 250 or img.width > 180:
             output_size = (180, 250)
             img.thumbnail(output_size, Image.LANCZOS)
-            img.save(self.image.path)  # Finally save image after modyfications
+            img.save(self.image.path)  # Save image after modyfications
  
 
 
