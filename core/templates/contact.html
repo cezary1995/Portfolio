@@ -11,6 +11,15 @@
           <p>{{title.description|safe}}</p>
         </div>
       </div>
+      {% if messages %}
+          <ul>
+          {% for message in messages %}
+              <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                  {{ message }}
+              </li>
+          {% endfor %}
+          </ul>
+      {% endif %} 
       <div class="contact-area">
         <div class="leave-comments-area">
           <div class="comments-box">

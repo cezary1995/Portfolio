@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from PIL import Image
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 
 class WorksTitle(models.Model):
     class Meta:
@@ -13,7 +13,7 @@ class WorksTitle(models.Model):
         max_length=60,
     )
 
-    description = RichTextField(
+    description = CKEditor5Field(
         verbose_name='Description',
         max_length=1200
     )

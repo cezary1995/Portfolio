@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator
+from django_ratelimit.decorators import ratelimit
+from django.contrib import messages 
 from .utils import get_paginator_data
 from .models.index import (
     MyExpertArea,WorkExperience, 
@@ -95,6 +96,7 @@ def blog(request):
     return render(request, 'blog.html', context)
 
 
+@ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def contact(request):
     title = ContactTitle.objects.first()
 
@@ -102,11 +104,18 @@ def contact(request):
         form = UserMessageForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.error(request, 'Message has been sent successfully' )
+            print(messages)
             return redirect('contact')
+        else:
+            messages.error(request, 'Make sure if every field is filled in.')
+            return render(request, 'contact.html', {'form': form})  # Pokaż formularz z błędami    
     else:
         form = UserMessageForm()
     context = {
         'title': title,
         'form': form,
     }
+
+    print("Wiadomości:", list(messages.get_messages(request)))
     return render(request, 'contact.html', context)

@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 
 class ServicesTitle(models.Model):
     class Meta:
@@ -11,7 +11,7 @@ class ServicesTitle(models.Model):
         max_length=60,
     )
 
-    description = RichTextField(
+    description = CKEditor5Field(
         verbose_name='Description',
         max_length=1200
     )

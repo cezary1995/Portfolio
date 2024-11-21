@@ -21,7 +21,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+
+    # CK editor
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
 ]
 
 if 'rosetta' in settings.INSTALLED_APPS:

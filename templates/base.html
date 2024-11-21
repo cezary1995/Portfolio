@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
-  <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+  <!-- <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> -->
 </head>
 
 <body>
@@ -44,7 +44,6 @@
                   {% endif %}
                   </div> 
                   <div class="text">
-                    <h3 class="card-title">{{ name }}</h3>
                     <p>{{ short_desc|safe }}</p>
                     <div class="common-button-groups">
                       <a class="btn btn-call" href="{% url 'contact' %}">
@@ -116,7 +115,7 @@
   </div>
   <!-- JS here -->
   <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
-  <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script> -->
   <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
   <script src="{% static 'assets/js/ajax-form.js' %}"></script>
   <script src="{% static 'assets/js/clipboard.min.js' %}"></script>

@@ -1,5 +1,6 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+# from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.timezone import now
 from core.utils import RATES
 
@@ -13,7 +14,7 @@ class AboutMe(models.Model):
         max_length=60,
     )
 
-    content = RichTextField(
+    content = CKEditor5Field(
         verbose_name='Informations about',
         max_length=1000,
         )

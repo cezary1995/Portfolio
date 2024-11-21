@@ -24,7 +24,9 @@
                   </div>              
                 </div>
               </li>
-              <p>{{ item.job_description|safe }}</p>
+              <p class="description">
+                {{ item.job_description|safe }}
+              </p>
               <br>
             {% endfor %}
             </ul>

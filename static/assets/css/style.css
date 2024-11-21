@@ -654,6 +654,10 @@ p {
     animation-play-state: paused; /* wstrzymuje animację */
 }
 
+.description {
+	font-size: 10px;
+}
+
 .work-experiance-card .work-experiance-slider li .date {
 	margin-right: 40px;
 }

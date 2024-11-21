@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
-    'ckeditor_uploader',
+    # 'ckeditor',
+    'django_ckeditor_5',
+    # 'ckeditor_uploader',
     'rosetta',
     'core.apps.CoreConfig',
     'debug_toolbar',
@@ -147,13 +148,29 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 
 CKEDITOR_5_CONFIGS = {
     'default': {
-        'language': 'en',
         'toolbar': [
-            {'name': 'basicstyles', 'items': ['Bold', 'Italic']},
-            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList']},
-            {'name': 'insert', 'items': ['Image', 'Link', 'MediaEmbed']},
-            {'name': 'styles', 'items': ['Format']},
-            {'name': 'document', 'items': ['Source']},
+            'heading', '|',
+            'bold', 'italic', 'underline', '|',
+            'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+            'bulletedList',  '|',
+            'undo', 'redo'
+        ],
+         'fontSize': {
+            'options': [
+                '8px', '12px', '13px', '15px', 'default', '16px', '20px', '24px', 
+            ],
+            'supportAllValues': True  # Pozwala na pełną elastyczność, jeśli chcesz wpisać rozmiar ręcznie
+        },
+         'fontColor': {
+            'supportCustomColors': True,  # Umożliwia wybór dowolnego koloru
+        },
+        'fontBackgroundColor': {
+            'supportCustomColors': True,  # Umożliwia wybór dowolnego koloru tła
+        },
+        'height': 250,
+        'width': '60%',
+        'blockToolbar': [
+            'paragraph', 'heading1', 'heading2', 'heading3', '|', 'undo', 'redo'
         ],
     }
 }
@@ -162,6 +179,8 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/",
+        'toolbar': 'full',
+        'fontSize_sizes': '10px/10px;12px/12px;14px/14px;16px/16px;18px/18px;',
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             'TIMEOUT': 300,

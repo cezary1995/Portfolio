@@ -3,9 +3,8 @@ from PIL import Image, ExifTags
 from django.core.exceptions import ValidationError
 from core.utils import ICON_CHOICES
 from django.utils.timezone import now
-from ckeditor.fields import RichTextField
 from django.core.exceptions import ObjectDoesNotExist
-
+from django_ckeditor_5.fields import CKEditor5Field
 
 class MyExpertArea(models.Model):
     name = models.CharField(
@@ -67,9 +66,9 @@ class WorkExperience(models.Model):
         default='',
     )
 
-    job_description = RichTextField(
+    job_description = CKEditor5Field(
         verbose_name='Job description',
-        max_length=400,
+        max_length=600,
         null=True,
         blank=True,
     )
@@ -158,13 +157,7 @@ class PersonalInfo(models.Model):
         verbose_name = "Personal info"  
         verbose_name_plural = "Personal info"
 
-    name = models.CharField(
-        verbose_name='Name',
-        max_length=40,
-        default='',   
-    )
-
-    short_desc = RichTextField(
+    short_desc = CKEditor5Field(
         verbose_name='Short description',
         default='',
     )   
