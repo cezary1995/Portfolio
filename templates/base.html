@@ -44,7 +44,8 @@
                   {% endif %}
                   </div> 
                   <div class="text">
-                    <p>{{ short_desc|safe }}</p>
+                    <h5 class="main-title">My name is <span>{{name}}</span></h5>
+                    <p>{{short_desc|safe}}</p>
                     <div class="common-button-groups">
                       <a class="btn btn-call" href="{% url 'contact' %}">
                         <svg class="icon" width="25" height="24" viewBox="0 0 25 24" fill="none"

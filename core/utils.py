@@ -18,7 +18,7 @@ RATES = [
 from django.core.paginator import Paginator
 
 
-def get_paginator_data(request, query_set, obj_per_page, max_page_links):
+def get_paginator_data(request, query_set, obj_per_page, max_page_links=3):
     
     # Create pagination - pass query set and obj per page
     paginator = Paginator(query_set, obj_per_page)
@@ -43,6 +43,6 @@ def get_paginator_data(request, query_set, obj_per_page, max_page_links):
         'next': page_obj.next_page_number,
         'first': 1,
         'last': page_obj.paginator.num_pages,
-
     }
+    
     return paginator_data

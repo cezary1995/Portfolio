@@ -13,28 +13,35 @@
       <div class="article-publications article-area">
         <div class="article-publications-main">
           <div class="row">
-            {% for article in paginator_data.page_obj %}
-            <div class="col-xl-6 col-lg-4 col-md-6">
-              <div class="article-publications-item">
-                <div class="image">
-                  <a href="article.html" class="d-block w-100">
-                    <img src="{{article.image.url}}" alt="blog-img-6" class="img-fluid w-100">
-                  </a>
-                  <a href="article.html" class="tags">{{article.category}}</a>
-                </div>
-                <div class="text">
-                  <a href="article.html" class="title">{{article.title}}</a>
-                  <ul class="list-unstyled">
-                    <li>{{article.reading_time}} min read</li>
-                    <li>{{article.uploaded_at}}</li>
-                  </ul>
+            {% if articles|length == 0 %}
+            <br>
+            <h1 class="main-title">Don't have any articles written yet, but interesting topic will come soon.</h1>
+            <br>
+            {% else %}
+              {% for article in articles %}
+              <div class="col-xl-6 col-lg-4 col-md-6">
+                <div class="article-publications-item">
+                  <div class="image">
+                    <a href="{{ article.get_absolute_url }}" class="d-block w-100">
+                      <img src="{{article.image.url}}" alt="blog-img-6" class="img-fluid w-100">
+                    </a>
+                    <a href="article.html" class="tags">{{article.category}}</a>
+                  </div>
+                  <div class="text">
+                    <a href="{{ article.get_absolute_url }}" class="title">{{article.title}}</a>
+                    <ul class="list-unstyled">
+                      <li>{{article.reading_time}} min read</li>
+                      <li>{{article.uploaded_at}}</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            {% endfor %}
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>
+      {% if articles|length > 2 %}
       <div class="pagination">
         <ul class="list-unstyled">
           {% if paginator_data.has_prev %}
@@ -107,6 +114,7 @@
             {% endif %}
         </ul>
       </div>
+     {% endif %}
     </div>
   </div>
 </div>

@@ -162,7 +162,33 @@ CKEDITOR_5_CONFIGS = {
             'supportAllValues': True  # Pozwala na pełną elastyczność, jeśli chcesz wpisać rozmiar ręcznie
         },
          'fontColor': {
-            'supportCustomColors': True,  # Umożliwia wybór dowolnego koloru
+            'supportCustomColors': True, # Umożliwia wybór dowolnego koloru
+             'colors': [
+                {
+                    'color': '#4770FF',  # primary(like var(--primary) in style.css)
+                    'label': 'Primary'
+                },
+                {
+                    'color': '#6c757d',  # Bootstrap secondary
+                    'label': 'Secondary'
+                },
+                {
+                    'color': '#198754',  # Bootstrap success
+                    'label': 'Success'
+                },
+                {
+                    'color': '#dc3545',  # Bootstrap danger
+                    'label': 'Danger'
+                },
+                {
+                    'color': '#ffc107',  # Bootstrap warning
+                    'label': 'Warning'
+                },
+                {
+                    'color': '#212529',  # Bootstrap dark
+                    'label': 'Dark'
+                },
+            ]  
         },
         'fontBackgroundColor': {
             'supportCustomColors': True,  # Umożliwia wybór dowolnego koloru tła

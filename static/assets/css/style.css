@@ -430,7 +430,19 @@ p {
 	margin-top: 24px;
 }
 
-.profile-card .text p {
+.profile-card .text .main-title{
+	font-size: 24px;
+	font-weight: 600;
+	color: var(--black);
+	line-height: 0.9em;
+	margin-bottom: 5px;
+}
+
+.profile-card .text .main-title span{
+	color: var(--primary);
+}
+
+.profile-card .card-body .text p {
 	margin-top: 8px;
 	color: var(--light-black);
 	font-size: 16px;
@@ -654,8 +666,8 @@ p {
     animation-play-state: paused; /* wstrzymuje animację */
 }
 
-.description {
-	font-size: 10px;
+.work-experiance-card .work-experiance-slider .description {
+	font-size: 15px;
 }
 
 .work-experiance-card .work-experiance-slider li .date {
@@ -1006,6 +1018,10 @@ p {
 
 .content-box-card .client-feedback {
 	margin-top: 50px;
+}
+
+.content-box-card .client-feedback .main-common-title span{
+	color: var(--primary);
 }
 
 .content-box-card .client-feedback .feedback-item {
@@ -1980,6 +1996,32 @@ p {
 	border-radius: 8px;
 }
 
+.leave-comments-area .comments-box-comment {
+	background-color: var(--dark-theme-white);
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.leave-comments-area .comments-box-comment .user-comment{
+	border-radius: 8px;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: var(--white);
+}
+
+.dark-theme .leave-comments-area .comments-box-comment .user-comment .comment {
+	color: var(--dark-theme-black)
+}
+
+.leave-comments-area .comments-box-comment .user-comment  ul{
+	border-top: 2px solid var(--dark-theme-white);
+}
+
+.leave-comments-area .comments-box-comment .user-comment  ul li{
+	color: var(--light-black);
+	font-size: small;
+}
+
 .leave-comments-area .comments-box .form-label {
 	font-size: 14px;
 	font-weight: 500;
@@ -2019,6 +2061,38 @@ p {
 	margin-left: 4px;
 }
 
+/* dark */
+.dark-theme .leave-comments-area .comments-box {
+	background-color: var(--dark-theme-black);
+	padding: 50px;
+	border-radius: 8px;
+}
+
+.dark-theme .leave-comments-area .comments-box-comment {
+	background-color: var(--dark-theme-black);
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.dark-theme .leave-comments-area .comments-box-comment .user-comment {
+	border-radius: 8px;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: black;
+}
+
+.dark-theme .leave-comments-area .comments-box-comment .user-comment .comment {
+	color: var(--dark-theme-white)
+}
+
+.dark-theme .leave-comments-area .comments-box-comment .user-comment  ul{
+	border-top: 1px solid var(--dark-theme-black);
+}
+
+.dark-theme .leave-comments-area .comments-box-comment .user-comment  ul li{
+	color: var(--light-black);
+	font-size: small;
+}
 
 /*=============================
 	09. Contact page CSS Start
@@ -2153,6 +2227,10 @@ p {
 
 .dark-theme .profile-card .text p {
 	color: var(--dark-theme-light-white);
+}
+
+.dark-theme .profile-card .text h5 {
+	color: var(--white);
 }
 
 .dark-theme .profile-card .text p span {

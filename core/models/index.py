@@ -157,6 +157,12 @@ class PersonalInfo(models.Model):
         verbose_name = "Personal info"  
         verbose_name_plural = "Personal info"
 
+    name = models.CharField(
+        verbose_name='Name',
+        max_length=50, 
+        null=True
+    )
+
     short_desc = CKEditor5Field(
         verbose_name='Short description',
         default='',

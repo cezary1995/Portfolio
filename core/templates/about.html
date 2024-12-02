@@ -7,13 +7,14 @@
     <div class="card-body">
       <div class="top-info">
         <div class="text">
-          <h5 class="main-title">My name is <span>{{ name }}</span> 👋</h5>
+          <h5 class="main-title">My name is <span>{{ about_me.name }}</span></h5>
           {{about_me.content|safe}}
         </div>
       </div>
       <div class="client-feedback">
-        <h2 class="main-common-title">Trusted By 0+ Clients
-        </h2>
+        {% if trusted > 0 %}
+          <h2 class="main-common-title">Trusted By <span>{{trusted}}</span> Clients</h2>
+        
         <div class="row client-feedback-slider">
           {% for review in reviews %}
           <div class="col-lg-6">
@@ -31,7 +32,7 @@
                   {{ review.truncated_content }}
                   <br>
                   {% if review.content|length > 400 %}
-                    <button type="button" class="btn btn-dark btn-sm" onclick="toggleContent('{{ forloop.counter }}')">Show more</button>
+                    <button type="button" class="btn btn-dark btn-sm mt-2" onclick="toggleContent('{{ forloop.counter }}')">Show more</button>
                   {% endif %}
                 </p>
                 <p class="full-content" id="full-{{ forloop.counter }}" style="display: none;">
@@ -48,6 +49,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endif %}
       </div>
       <div class="work-together-slider">
         <div class="slider-main d-flex gap-4 align-items-center">

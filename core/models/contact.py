@@ -20,6 +20,8 @@ class ContactTitle(models.Model):
 
 
 class UserMessage(models.Model):
+    class Meta:
+        verbose_name_plural = "MESSAGES"  
 
     name = models.CharField(
         verbose_name='Name',
@@ -45,7 +47,7 @@ class UserMessage(models.Model):
         verbose_name='Content message',
     )
 
-    created_at = models.DateTimeField(
+    uploaded_at = models.DateTimeField(
         verbose_name='Created at',
         default=now,
     )

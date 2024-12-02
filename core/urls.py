@@ -11,7 +11,8 @@ urlpatterns = [
      path('works/', views.works, name='works'),
      path('blog/', views.blog, name='blog'),
      path('contact/', views.contact, name='contact'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+     path('article/<slug:slug>/', views.article, name='article'),
+] 
 
 if settings.DEBUG:
      urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

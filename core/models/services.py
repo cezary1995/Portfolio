@@ -13,7 +13,7 @@ class ServicesTitle(models.Model):
 
     description = CKEditor5Field(
         verbose_name='Description',
-        max_length=1200
+        max_length=1600
     )
 
 

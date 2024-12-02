@@ -16,7 +16,8 @@ from .models.works import(
     WorksTitle, Project
 )
 from .models.blog import(
-    BlogTitle, BlogArticle
+    BlogTitle, BlogArticle,
+    BlogComment
 )
 from .models.contact import(
     ContactTitle, UserMessage
@@ -92,10 +93,15 @@ class BlogTitleAdmin(SingleInstanceAdmin):
     limit_instance_creation = True
 
 class BlogArticleAdmin(admin.ModelAdmin):
-    readonly_fields = ('uploaded_at',)
+    readonly_fields = ('uploaded_at', 'slug')
+
+class BlogCommentAdmin(admin.ModelAdmin):
+    readonly_fields = ('name', 'email', 'uploaded_at')
 
 admin.site.register(BlogTitle, BlogTitleAdmin)
 admin.site.register(BlogArticle, BlogArticleAdmin)
+admin.site.register(BlogComment, BlogCommentAdmin)
+
 
 
 # Contact
@@ -103,7 +109,7 @@ class ContactTitleAdmin(SingleInstanceAdmin):
     limit_instance_creation = True
 
 class UserMessageAdmin(admin.ModelAdmin):
-    readonly_fields = ('name', 'email', 'phone', 'created_at')
+    readonly_fields = ('name', 'email', 'phone', 'uploaded_at')
 
 admin.site.register(ContactTitle, ContactTitleAdmin)
 admin.site.register(UserMessage, UserMessageAdmin)

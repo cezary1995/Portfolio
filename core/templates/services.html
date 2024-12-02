@@ -34,6 +34,26 @@
           <div class="accordion" id="accordionExample">
             {% for question in questions %}
             <div class="accordion-item">
+              <h4 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  {{question.question}}
+                  <span class="ms-auto">
+                    <span class="icon ms-4">
+                      <img class="icon-plus" src="{% static 'assets/img/icons/plus.svg' %}" alt="plus">
+                      <img class="icon-minus d-none" src="{% static 'assets/img/icons/minus.svg' %}" alt="minus">
+                    </span>
+                  </span>
+                </button>
+              </h4>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p>{{question.response}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="accordion-item">
               <h4 class="accordion-header" id="headingFive">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
@@ -46,7 +66,7 @@
                   <p>{{question.response}}</p>
                 </div>
               </div>
-            </div>
+            </div> -->
             {% endfor %}
           </div>
         </div>

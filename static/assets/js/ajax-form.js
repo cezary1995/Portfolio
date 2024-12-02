@@ -11,7 +11,7 @@ $(function () {
 		// Stop the browser from submitting the form.
 		e.preventDefault();
 
-		// Serialize the form data.
+		// Serialize(change f.: JS -> string(format: URL-encoded)) the form data.
 		var formData = $(form).serialize();
 
 		// Submit the form using AJAX.
@@ -26,7 +26,7 @@ $(function () {
 				$(formMessages).addClass('success');
 
 				// Set the message text.
-				$(formMessages).text(response);
+				$(formMessages).text(response.responseText);
 
 				// Clear the form.
 				$('#contact-form input,#contact-form textarea').val('');
@@ -36,14 +36,14 @@ $(function () {
 					$(formMessages).empty().removeClass('success');
 				}, 5000);
 			})
-			.fail(function (data) {
+			.fail(function (response) {
 				// Make sure that the formMessages div has the 'error' class.
 				$(formMessages).removeClass('success');
 				$(formMessages).addClass('error');
 
 				// Set the message text.
-				if (data.responseText !== '') {
-					$(formMessages).text(data.responseText);
+				if (response.responseText !== '') {
+					$(formMessages).text(response.responseText);
 				} else {
 					$(formMessages).text('Oops! An error occured and your message could not be sent.');
 				}

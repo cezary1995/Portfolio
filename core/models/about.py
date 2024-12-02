@@ -49,3 +49,6 @@ class Review(models.Model):
         if len(self.content) > 200:
             return self.content[:200] + '...'
         return self.content
+    
+
+

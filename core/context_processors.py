@@ -17,9 +17,15 @@ def context_personal_info(request):
             personal_info = None
         
         if personal_info:
-            data = {'short_desc': personal_info.short_desc}
+            data = {
+                'name': personal_info.name,
+                'short_desc': personal_info.short_desc
+                }
         else:
-            data = {'short_desc': 'Python test automation engineer, Sii best worker'}
+            data = {
+                'name': 'Cezary Rolka',
+                'short_desc': 'Python test automation engineer, Sii best worker'
+                }
             
         cache.set(cache_key, data, timeout=20)
 
