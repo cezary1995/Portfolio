@@ -31,23 +31,24 @@ $(function () {
 				// Clear the form.
 				$('#contact-form input,#contact-form textarea').val('');
 				$('#contact-form select[name="budget"]').prop('selectedIndex', 0);
-				// Remove success message after 2 seconds
+				// Remove success message after 5 seconds
 				setTimeout(function () {
 					$(formMessages).empty().removeClass('success');
 				}, 5000);
 			})
 			.fail(function (response) {
+
 				// Make sure that the formMessages div has the 'error' class.
 				$(formMessages).removeClass('success');
 				$(formMessages).addClass('error');
-
-				// Set the message text.
-				if (response.responseText !== '') {
-					$(formMessages).text(response.responseText);
+				
+				if (response.responseJSON && response.responseJSON.responseText){
+					$(formMessages).text(response.responseJSON.responseText);
 				} else {
-					$(formMessages).text('Oops! An error occured and your message could not be sent.');
+					$(formMessages).text('Oops! An error occurred and your message could not be sent.');
 				}
-				// Remove error message after 2 seconds
+
+				// Remove error message after 5 seconds
 				setTimeout(function () {
 					$(formMessages).empty().removeClass('error');
 				}, 5000);
@@ -55,3 +56,5 @@ $(function () {
 	});
 
 });
+
+

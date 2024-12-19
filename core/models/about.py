@@ -51,4 +51,3 @@ class Review(models.Model):
         return self.content
     
 
-

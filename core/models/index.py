@@ -201,3 +201,26 @@ class SocialMedia(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class SliderText(models.Model):
+
+    view = models.CharField(
+        verbose_name='View',
+        max_length=100,
+    )
+    
+    slider_text = models.CharField(
+        verbose_name='Slider text',
+        max_length=100
+    )
+
+    # make sure that view field will be lowercase
+    def save(self, *args, **kwargs):
+        if self.view:
+            self.view = self.view.lower()
+        super().save(*args, **kwargs)
+
+
+    def __str__(self):
+        return self.view 

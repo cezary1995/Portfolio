@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django_ratelimit.decorators import ratelimit
-from django.contrib import messages 
 from django.utils.timezone import now
+from django.views.decorators.csrf import csrf_exempt
+from django_ratelimit.decorators import ratelimit
+from django_ratelimit.core import is_ratelimited
 from .utils import get_paginator_data
 from .models.index import (
     MyExpertArea,WorkExperience, 
-    SocialMedia,
+    SocialMedia, SliderText
 )
 from .models.about import(
     AboutMe, Review
@@ -49,11 +50,14 @@ def about(request):
     about_me = AboutMe.objects.first() 
     reviews = Review.objects.all()
     trusted = len([review for review in reviews if review.rate > 2])
+    slider = SliderText.objects.filter(view='about').first()
+
 
     context = {
       'about_me': about_me,
       'reviews': reviews,
       'trusted': trusted,
+      'slider': slider,
     }
     return render(request, 'about.html', context)
 
@@ -62,11 +66,13 @@ def services(request):
     title = ServicesTitle.objects.first()
     services = Service.objects.all()
     asked_questions = AskedQuestion.objects.all()
-    
+    slider = SliderText.objects.filter(view='service').first()
+
     context = {
        'services': services,
        'questions': asked_questions,
-       'title': title
+       'title': title,
+       'slider': slider
     }
     return render(request, 'services.html', context)
 
@@ -101,11 +107,18 @@ def blog(request):
     }
     return render(request, 'blog.html', context)
 
-
+@csrf_exempt
+@ratelimit(key='ip', rate='2/m', method='POST', block=False)
 def article(request, slug):
 
     article = get_object_or_404(BlogArticle, slug=slug)
     comments = BlogComment.objects.all()
+
+    # Check if requests limit has been reached
+    if is_ratelimited(request, fn=contact, key='ip', rate='2/m', method='POST', increment=True):
+        return JsonResponse(
+                {'responseText': 'Too many requests, please wait before post comment again'}, status=429
+                )
 
     if request.method == 'POST':
         form = UserArticleComment(request.POST)
@@ -126,9 +139,16 @@ def article(request, slug):
     return render(request, 'article.html', context)
 
 
-@ratelimit()
+@csrf_exempt
+@ratelimit(key='ip', rate='2/m', method='POST', block=False)
 def contact(request):
     title = ContactTitle.objects.first()
+
+    # Check if requests limit has been reached 
+    if is_ratelimited(request, fn=contact, key='ip', rate='2/m', method='POST', increment=True):
+        return JsonResponse(
+                {'responseText': 'Too many requests, please wait one minute before send message again'}, status=429
+                )
 
     if request.method == 'POST':
         form = UserMessageForm(request.POST)
@@ -142,5 +162,4 @@ def contact(request):
         'title': title,
         'form': form,
     }
-
     return render(request, 'contact.html', context)

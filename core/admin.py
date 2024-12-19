@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models.index import (
     MyExpertArea, WorkExperience, 
     SocialMedia, ProfilePicture, 
-    PersonalInfo  
+    PersonalInfo, SliderText  
 )
 from .models.about import(
     AboutMe, Review
@@ -53,11 +53,13 @@ class SocialMediaInline(admin.TabularInline):
 class PersonalInfoAdmin(SingleInstanceAdmin):
     inlines = [SocialMediaInline] #zarządzanie social mediami z poziomu klasy PersonalInfo
     limit_instance_creation = True
+
    
 admin.site.register(MyExpertArea)
 admin.site.register(WorkExperience)
 admin.site.register(ProfilePicture, ProfilePictureAdmin)
 admin.site.register(PersonalInfo, PersonalInfoAdmin)
+admin.site.register(SliderText)
 
 
 # About

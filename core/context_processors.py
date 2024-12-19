@@ -1,18 +1,19 @@
 from django.core.cache import cache
 from .models.index import PersonalInfo, ProfilePicture
-from django.views.decorators.cache import cache_page
+
 
 def copy_email(request):
     return {'email': 'cezary.rolka95@gmail.com'}
 
 
-def context_personal_info(request):
+def context_data(request):
     cache_key = 'personal_data'
     data = cache.get(cache_key)
 
     if not data:
         try:
-            personal_info = PersonalInfo.objects.first() 
+            personal_info = PersonalInfo.objects.first()
+
         except PersonalInfo.DoesNotExist:
             personal_info = None
         

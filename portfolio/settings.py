@@ -34,19 +34,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
     'apps.PortfolioAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'ckeditor',
     'django_ckeditor_5',
-    # 'ckeditor_uploader',
     'rosetta',
     'core.apps.CoreConfig',
     'debug_toolbar',
+    'django_ratelimit',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +73,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'core.context_processors.copy_email',
-                'core.context_processors.context_personal_info',
+                'core.context_processors.context_data',
                 'core.context_processors.context_photo',
             ],
         },
