@@ -3,6 +3,7 @@ from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+from core.utils import CATEGORIES
 
 
 class BlogTitle(models.Model):
@@ -17,7 +18,7 @@ class BlogTitle(models.Model):
 
     description = models.TextField(
         verbose_name='Description',
-        max_length=400,
+        max_length=1000,
         )
 
     def __str__(self):
@@ -40,8 +41,9 @@ class BlogArticle(models.Model):
     )
 
     category = models.CharField(
-        verbose_name='Category',
-        max_length=40,
+        max_length=50,
+        choices=CATEGORIES,
+        blank=True,
     )
 
     content = CKEditor5Field(
@@ -59,9 +61,15 @@ class BlogArticle(models.Model):
         verbose_name='Aprox. reading time',
     ) 
 
+    def get_categories_display(self):
+        return dict(CATEGORIES).get(self.category, self.category)
+    
+    # It changes column name in admin app 'get_categories_display' -> 'category'
+    get_categories_display.short_description = "category"
+
     def get_absolute_url(self):
         # Wygeneruje URL na podstawie nazwy widoku 'article' i argumentu slug
-        return reverse('article', kwargs={'slug': self.slug})
+        return reverse('article', kwargs={'slug': self.slug, 'article_id': self.id})
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -93,3 +101,14 @@ class BlogComment(models.Model):
         verbose_name='Uploaded at',
         auto_now_add=True
     )
+
+    article = models.ForeignKey(
+        BlogArticle,
+        on_delete=models.CASCADE,
+        related_name='comments',  # Dzięki temu możemy dostać się do komentarzy artykułu za pomocą article.comments
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.article.title}"

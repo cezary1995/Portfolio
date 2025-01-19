@@ -212,7 +212,7 @@ class SliderText(models.Model):
     
     slider_text = models.CharField(
         verbose_name='Slider text',
-        max_length=100
+        max_length=150
     )
 
     # make sure that view field will be lowercase

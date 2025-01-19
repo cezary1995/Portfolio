@@ -1,4 +1,5 @@
 import time
+from django import forms
 from django.contrib import admin
 from .models.index import (
     MyExpertArea, WorkExperience, 
@@ -22,6 +23,7 @@ from .models.blog import(
 from .models.contact import(
     ContactTitle, UserMessage
 )
+from core.utils import CATEGORIES
 
 class SingleInstanceAdmin(admin.ModelAdmin):
     limit_instance_creation = False 
@@ -91,10 +93,17 @@ admin.site.register(Project)
 
 
 # Blog
+class ArticleAdminForm(forms.ModelForm):
+    class Meta:
+        model = BlogArticle
+        fields = '__all__'
+    
 class BlogTitleAdmin(SingleInstanceAdmin):
     limit_instance_creation = True
 
 class BlogArticleAdmin(admin.ModelAdmin):
+    form = ArticleAdminForm
+    list_display = ('title', 'get_categories_display')
     readonly_fields = ('uploaded_at', 'slug')
 
 class BlogCommentAdmin(admin.ModelAdmin):

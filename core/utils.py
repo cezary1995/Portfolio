@@ -14,6 +14,14 @@ RATES = [
         (1, '1 - Below expectations '),
 ]
 
+CATEGORIES = [
+    ('sport', 'Sport'),
+    ('business', 'Business'),
+    ('technology', 'Technology'),
+    ('health', 'Health'),
+    ('entertainment', 'Entertainment'),
+]
+
 
 from django.core.paginator import Paginator
 

@@ -11,7 +11,7 @@ urlpatterns = [
      path('works/', views.works, name='works'),
      path('blog/', views.blog, name='blog'),
      path('contact/', views.contact, name='contact'),
-     path('article/<slug:slug>/', views.article, name='article'),
+     path('article/<slug:slug>/<int:article_id>/', views.article, name='article'),
 ] 
 
 if settings.DEBUG:

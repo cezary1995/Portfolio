@@ -17,7 +17,7 @@
           {{article.content|safe}}
           <div class="tags-and-share">
             <div class="tags">
-              <h3 class="title">Tags:</h3>
+              <h3 class="title">Category:</h3>
               <ul class="list-unstyled">
                 <li><a href="#">{{article.category}}</a></li>
               </ul>
@@ -34,30 +34,30 @@
               </div>
             </div>
           </div>
-          <div class="related-post">
-            <h2 class="main-common-title">Related Post</h2>
-            <div class="row g-4">
-              <div class="col-md-6">
-              <div class="col-md-6">
-                <div class="article-publications-item">
-                  <div class="image">
-                    <a href="article.html" class="d-block w-100">
-                      <img src="assets/img/blog/blog-img-2.jpg" alt="blog-img-2" class="img-fluid w-100">
-                    </a>
-                    <a href="article.html" class="tags">Development</a>
-                  </div>
-                  <div class="text">
-                    <a href="article.html" class="title">Want To Upgrade Your Brain? Stop Doing These 7
-                      Things</a>
-                    <ul class="list-unstyled">
-                      <li>15 min read</li>
-                      <li>Nov 6, 2023</li>
-                    </ul>
+            <div class="related-post">
+              <h2 class="main-common-title">Related Post</h2>
+              <div class="row g-4">
+                {% for article in related_posts %} 
+                <div class="col-md-6">
+                  <div class="article-publications-item">
+                    <div class="image">
+                      <a href="{{ article.get_absolute_url }}" class="d-block w-100">
+                        <img src="{{article.image.url}}" alt="blog-img-2" class="img-fluid w-100">
+                      </a>
+                      <a href="article.html" class="tags">{{article.category}}</a>
+                    </div>
+                    <div class="text">
+                      <a href="{{ article.get_absolute_url }}" class="title">{{article.title}}</a>
+                      <ul class="list-unstyled">
+                        <li>{{article.reading_time}} min read</li>
+                        <li>{{article.uploaded_at}}</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
+                {% endfor %}
               </div>
             </div>
-          </div>
           <div class="leave-comments-area">
             <h3 class="main-title">Comments</h3>
             <div class="comments-box-comment">
