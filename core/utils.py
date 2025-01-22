@@ -22,6 +22,12 @@ CATEGORIES = [
     ('entertainment', 'Entertainment'),
 ]
 
+VIEWS = [
+    ('about', 'about'),
+    ('services', 'services'),
+    ('works', 'works')
+]
+
 
 from django.core.paginator import Paginator
 

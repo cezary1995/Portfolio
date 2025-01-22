@@ -4,6 +4,7 @@ from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.core import is_ratelimited
+from django.urls import reverse
 from .utils import get_paginator_data
 from .models.index import (
     MyExpertArea,WorkExperience, 
@@ -52,12 +53,12 @@ def about(request):
     trusted = len([review for review in reviews if review.rate > 2])
     slider = SliderText.objects.filter(view='about').first()
 
-
     context = {
       'about_me': about_me,
       'reviews': reviews,
       'trusted': trusted,
       'slider': slider,
+      'url': reverse('contact')
     }
     return render(request, 'about.html', context)
 
@@ -66,7 +67,7 @@ def services(request):
     title = ServicesTitle.objects.first()
     services = Service.objects.all()
     asked_questions = AskedQuestion.objects.all()
-    slider = SliderText.objects.filter(view='service').first()
+    slider = SliderText.objects.filter(view='services').first()
 
     context = {
        'services': services,
@@ -80,6 +81,7 @@ def services(request):
 def works(request):
     title = WorksTitle.objects.first()
     projects = Project.objects.all()
+    slider = SliderText.objects.filter(view='works').first()
 
     # Pagination
     paginator_data = get_paginator_data(request=request, query_set=projects, obj_per_page=1)
@@ -87,7 +89,9 @@ def works(request):
     context = {
         'title': title,
         'projects': projects,
-        'paginator_data': paginator_data
+        'paginator_data': paginator_data,
+        'slider': slider,
+        'url': 'https://github.com/cezary1995'
     }
     return render(request, 'works.html', context)
 
@@ -166,5 +170,6 @@ def contact(request):
     context = {
         'title': title,
         'form': form,
+        
     }
     return render(request, 'contact.html', context)

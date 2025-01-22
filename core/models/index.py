@@ -1,7 +1,7 @@
 from django.db import models
 from PIL import Image, ExifTags
 from django.core.exceptions import ValidationError
-from core.utils import ICON_CHOICES
+from core.utils import ICON_CHOICES, VIEWS
 from django.utils.timezone import now
 from django.core.exceptions import ObjectDoesNotExist
 from django_ckeditor_5.fields import CKEditor5Field
@@ -208,6 +208,8 @@ class SliderText(models.Model):
     view = models.CharField(
         verbose_name='View',
         max_length=100,
+        choices=VIEWS,
+        unique=True
     )
     
     slider_text = models.CharField(
