@@ -46,7 +46,7 @@ class UserMessageForm(forms.ModelForm):
                 ),
         }
 
-class UserArticleComment(forms.ModelForm):
+class UserArticleCommentForm(forms.ModelForm):
     class Meta:
         model = BlogComment
         fields = ['name', 'email', 'message']

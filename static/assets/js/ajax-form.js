@@ -18,6 +18,7 @@ $(function () {
 		$.ajax({
 			type: 'POST',
 			url: $(form).attr('action'),
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			data: formData
 		})
 			.done(function (response) {
@@ -56,5 +57,3 @@ $(function () {
 	});
 
 });
-
-

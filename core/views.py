@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.utils.timezone import now
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.core import is_ratelimited
 from .utils import get_paginator_data
@@ -27,7 +27,7 @@ from .models.contact import(
     ContactTitle
 )
 
-from .forms import UserMessageForm, UserArticleComment
+from .forms import UserMessageForm, UserArticleCommentForm
 
 def index(request):
     expert_area = MyExpertArea.objects.all()
@@ -107,15 +107,17 @@ def blog(request):
     }
     return render(request, 'blog.html', context)
 
-@csrf_exempt
-@ratelimit(key='ip', rate='2/m', method='POST', block=False)
+
+@ratelimit(key='ip', rate='20/m', method='POST', block=False)
 def article(request, slug, article_id):
     article = get_object_or_404(BlogArticle, slug=slug, id=article_id)
     category = article.category
     comments = BlogComment.objects.filter(article=article).order_by('-uploaded_at')
-    # Get 2 latest related posts 
-    related_posts = BlogArticle.objects.filter(category=category).exclude(id=article_id).order_by('-uploaded_at')[:2]
 
+    # Get 2 latest related posts 
+    related_posts = BlogArticle.objects.filter(
+        category=category).exclude(id=article_id).order_by('-uploaded_at')[:2]
+    
     # Check if requests limit has been reached
     if is_ratelimited(request, fn=contact, key='ip', rate='2/m', method='POST', increment=True):
         return JsonResponse(
@@ -123,15 +125,14 @@ def article(request, slug, article_id):
                 )
     
     if request.method == 'POST':
-        form = UserArticleComment(request.POST)
+        form = UserArticleCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.article = article
-            comment.uploaded_at = now()
             comment.save()
             return redirect('article', slug=article.slug, article_id=article_id)
     else:
-        form = UserArticleComment()
+        form = UserArticleCommentForm()
     
     context = {
         'article': article,
@@ -139,19 +140,18 @@ def article(request, slug, article_id):
         'related_posts': related_posts,
         'form': form,
     }
-
     return render(request, 'article.html', context)
 
 
 @csrf_exempt
-@ratelimit(key='ip', rate='2/m', method='POST', block=False)
+@ratelimit(key='ip', rate='20/m', method='POST', block=False)
 def contact(request):
     title = ContactTitle.objects.first()
 
     # Check if requests limit has been reached 
     if is_ratelimited(request, fn=contact, key='ip', rate='2/m', method='POST', increment=True):
         return JsonResponse(
-                {'responseText': 'Too many requests, please wait one minute before send message again'}, status=429
+                {'responseText': 'Too many requests, wait one minute before send message again.'}, status=429
                 )
 
     if request.method == 'POST':
@@ -162,6 +162,7 @@ def contact(request):
         return JsonResponse({'responseText': 'Make sure every field is filled in'})
     else:
         form = UserMessageForm()
+
     context = {
         'title': title,
         'form': form,

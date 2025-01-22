@@ -101,17 +101,21 @@ class ArticleAdminForm(forms.ModelForm):
 class BlogTitleAdmin(SingleInstanceAdmin):
     limit_instance_creation = True
 
+class BlogCommentInLine(admin.TabularInline):
+    model = BlogComment
+    extra = 0
+    fields = ['name', 'email', 'message', 'uploaded_at']
+    readonly_fields = ['uploaded_at']
+
 class BlogArticleAdmin(admin.ModelAdmin):
+    inlines = [BlogCommentInLine]
     form = ArticleAdminForm
     list_display = ('title', 'get_categories_display')
     readonly_fields = ('uploaded_at', 'slug')
 
-class BlogCommentAdmin(admin.ModelAdmin):
-    readonly_fields = ('name', 'email', 'uploaded_at')
-
 admin.site.register(BlogTitle, BlogTitleAdmin)
 admin.site.register(BlogArticle, BlogArticleAdmin)
-admin.site.register(BlogComment, BlogCommentAdmin)
+
 
 
 

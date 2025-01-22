@@ -105,10 +105,9 @@ class BlogComment(models.Model):
     article = models.ForeignKey(
         BlogArticle,
         on_delete=models.CASCADE,
-        related_name='comments',  # Dzięki temu możemy dostać się do komentarzy artykułu za pomocą article.comments
         null=True,
         blank=True
     )
 
     def __str__(self):
-        return f"Comment by {self.name} on {self.article.title}"
+        return f"{self.article.title}: {self.message[:50]}"

@@ -14,7 +14,7 @@
       <div class="contact-area">
         <div class="leave-comments-area">
           <div class="comments-box">
-            <form id="ajax-form"  method="POST" action="{% url 'contact' %}">
+            <form id="contact-form"  method="POST" action="{% url 'contact' %}">
               {% csrf_token %}
               <div class="row gx-3">
                 <div class="col-md-6">
