@@ -86,10 +86,13 @@ admin.site.register(ServicesTitle, ServicesTitleAdmin)
 
 # Works
 class WorksTitleAdmin(SingleInstanceAdmin):
-   limit_instance_creation = True
+    limit_instance_creation = True
 
+class ProjectAdmin(admin.ModelAdmin):
+    readonly_fields = ('slug',)
+   
 admin.site.register(WorksTitle, WorksTitleAdmin)    
-admin.site.register(Project)
+admin.site.register(Project, ProjectAdmin)
 
 
 # Blog

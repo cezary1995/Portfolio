@@ -25,7 +25,8 @@ CATEGORIES = [
 VIEWS = [
     ('about', 'about'),
     ('services', 'services'),
-    ('works', 'works')
+    ('works', 'works'),
+    ('project_details', 'project_details'),
 ]
 
 

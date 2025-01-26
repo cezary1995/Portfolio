@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+<div class="col-xl-8">
+  <div class="card content-box-card">
+    <div class="card-body portfolio-card">
+      <div class="portfolio-details-area">
+        <div class="main-image">
+          <img src='{{project.image.url}}' alt="project-details">
+        </div>
+        <div class="portfolio-details-text">
+          <div class="overview">
+            <h3 class="card-title">"{{project.name}}" - overview:</h3>
+            <p>{{project.description|safe}}</p>
+          </div>
+        </div>
+        <h3 class="card-title">Other projects</h3>
+        <div class="other_projects d-flex justify-content-between align-items-center ">
+          {% for project in other_projects %}
+          <div class="col-lg-5 m-2">
+            <div class="portfolio-item">
+              <div class="image">
+                <a href="{{ project.get_absolute_url }}">
+                  <img src='{{project.image.url}}' alt="project-3" class="img-fluid w-80">
+                </a>
+              </div>
+                  <a href="{{ project.get_absolute_url }}"><p>{{ project.name }}</p></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% include 'slider.html' %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+          

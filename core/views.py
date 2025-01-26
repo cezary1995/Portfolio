@@ -96,6 +96,19 @@ def works(request):
     return render(request, 'works.html', context)
 
 
+def project_details(request, slug, project_id):
+    project = get_object_or_404(Project, slug=slug, id=project_id)
+    slider = SliderText.objects.filter(view='works').first()
+    other_projects = Project.objects.exclude(id=project_id).order_by('?')[:2]
+
+    context = {
+        'project': project,
+        'other_projects': other_projects,
+        'slider': slider,
+        'url': ''
+    }
+    return render(request, 'project_details.html', context)
+
 def blog(request):
     title = BlogTitle.objects.first()
     articles = BlogArticle.objects.all()
@@ -106,7 +119,6 @@ def blog(request):
     context = {
         'articles': articles,
         'title': title,
-        'articles': articles,
         'paginator_data': paginator_data
     }
     return render(request, 'blog.html', context)
