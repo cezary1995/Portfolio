@@ -1,36 +1,34 @@
 from django.core.cache import cache
 from .models.index import PersonalInfo, ProfilePicture
 
+from django.utils.translation import gettext as _
+from django.utils.translation import get_language
 
 def copy_email(request):
     return {'email': 'cezary.rolka95@gmail.com'}
 
 
-def context_data(request):
-    cache_key = 'personal_data'
-    data = cache.get(cache_key)
+def context_personal_info(request):
+    lang = get_language()
 
-    if not data:
-        try:
-            personal_info = PersonalInfo.objects.first()
-
-        except PersonalInfo.DoesNotExist:
-            personal_info = None
-        
-        if personal_info:
-            data = {
-                'name': personal_info.name,
-                'short_desc': personal_info.short_desc
-                }
-        else:
-            data = {
-                'name': 'Cezary Rolka',
-                'short_desc': 'Python test automation engineer, Sii best worker'
-                }
-            
-        cache.set(cache_key, data, timeout=20)
-
+    try:
+        personal_info = PersonalInfo.objects.first()
+        description = personal_info.short_desc
+    except PersonalInfo.DoesNotExist:
+        personal_info = None
+    
+    if personal_info:
+        data = {
+            'name': personal_info.name,
+            'short_desc': description
+            }
+    else:
+        data = {
+            'name': 'Cezary Rolka',
+            'short_desc': description
+            }    
     return data
+
 
 def context_photo(request):
     cache_key = 'photo_cache'

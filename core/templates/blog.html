@@ -1,13 +1,14 @@
 {% extends "base.html" %} 
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="col-xl-8">
   <div class="card content-box-card">
     <div class="card-body portfolio-card">
       <div class="top-info">
         <div class="text">
-          <h1 class="main-title">{{ title.title }}</h1>
-          <p>{{ title.description }}</p>
+          <h1 class="main-title">{{title.blog_desc|safe}}</h1>
+          <p></p>
         </div>
       </div>
       <div class="article-publications article-area">
@@ -15,7 +16,7 @@
           <div class="row">
             {% if articles|length == 0 %}
             <br>
-            <h1 class="main-title">Don't have any articles written yet, but interesting topic will come soon.</h1>
+            <h1 class="main-title">{% trans "Don't have any articles written yet, but interesting topic will come soon." %}</h1>
             <br>
             {% else %}
               {% for article in articles %}
@@ -25,13 +26,13 @@
                     <a href="{{ article.get_absolute_url }}" class="d-block w-100">
                       <img src="{{article.image.url}}" alt="blog-img-6" class="img-fluid w-100">
                     </a>
-                    <a href="article.html" class="tags">{{article.category}}</a>
+                    <p class="tags">{% trans article.category %}</p>
                   </div>
                   <div class="text">
                     <a href="{{ article.get_absolute_url }}" class="title">{{article.title}}</a>
                     <ul class="list-unstyled">
-                      <li>{{article.reading_time}} min read</li>
-                      <li>{{article.uploaded_at}}</li>
+                      <li>{{article.reading_time}} {% trans "min read" %}</li>
+                      <li>{{ article.uploaded_at|date:"j F Y H:i" }} </li>
                     </ul>
                   </div>
                 </div>

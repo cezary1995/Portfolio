@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.timezone import now
-from django_ckeditor_5.fields import CKEditor5Field
 
 
 class ContactTitle(models.Model):
@@ -8,14 +7,10 @@ class ContactTitle(models.Model):
         verbose_name = "Contact - title"  
         verbose_name_plural = "Contact - title"
 
-    title = models.CharField(
-        verbose_name='Title',
-        max_length=60,
-    )
-
-    description = CKEditor5Field(
+    desc = models.TextField(
         verbose_name='Description',
-        max_length=1200
+        max_length=1200,
+        null=True
     )
 
 

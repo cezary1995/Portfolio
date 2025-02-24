@@ -3,7 +3,7 @@ from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
-from core.utils import CATEGORIES
+
 
 
 class BlogTitle(models.Model):
@@ -16,14 +16,16 @@ class BlogTitle(models.Model):
         max_length=60,
     )
 
-    description = models.TextField(
+    blog_desc = models.TextField(
         verbose_name='Description',
         max_length=1000,
+        null=True
         )
-
+    
     def __str__(self):
         return 'Blog'
-    
+
+
 class BlogArticle(models.Model):
 
     title = models.CharField(
@@ -42,11 +44,10 @@ class BlogArticle(models.Model):
 
     category = models.CharField(
         max_length=50,
-        choices=CATEGORIES,
         blank=True,
     )
 
-    content = CKEditor5Field(
+    content = models.TextField(
         verbose_name='Article content',
         null=True,
         blank=True,
@@ -60,12 +61,6 @@ class BlogArticle(models.Model):
     reading_time = models.SmallIntegerField(
         verbose_name='Aprox. reading time',
     ) 
-
-    def get_categories_display(self):
-        return dict(CATEGORIES).get(self.category, self.category)
-    
-    # It changes column name in admin app 'get_categories_display' -> 'category'
-    get_categories_display.short_description = "category"
 
     def get_absolute_url(self):
         # Wygeneruje URL na podstawie nazwy widoku 'article' i argumentu slug

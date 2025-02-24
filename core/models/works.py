@@ -1,25 +1,25 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from PIL import Image
-from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.text import slugify
 from django.urls import reverse
-from django_ckeditor_5.fields import CKEditor5Field
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language
+from django.utils.translation import activate
+# from ckeditor.fields import RichTextField
+
 
 class WorksTitle(models.Model):
     class Meta:
         verbose_name = "Works - title"  
         verbose_name_plural = "Works - title"
 
-    title = models.CharField(
-        verbose_name='Title',
-        max_length=60,
+    desc = models.TextField(
+        verbose_name='Description',
+        max_length=1200,
+        null=True
     )
 
-    description = CKEditor5Field(
-        verbose_name='Description',
-        max_length=1200
-    )
 
 class Project(models.Model):
     name = models.CharField(
@@ -43,7 +43,7 @@ class Project(models.Model):
         null=True,
     ) 
 
-    description = CKEditor5Field(
+    proj_desc = models.TextField(
         verbose_name='Project description',
         max_length=3000,
         null=True,
@@ -52,6 +52,7 @@ class Project(models.Model):
     
     slug = models.SlugField(
         verbose_name='URL',
+        unique=True
     )
 
     def clean(self):
@@ -61,9 +62,17 @@ class Project(models.Model):
         if img.height < 50 or img.width < 50:
             raise ValidationError("Image is too small.")
         
+    def get_translated_slug(self):
+        lang = get_language()
+        translated_slug = getattr(self, f'slug_{lang}', self.slug)
+        print(f'Language: {lang}, Slug: {translated_slug}')
+        return translated_slug
+        
     def get_absolute_url(self):
-        # Wygeneruje URL na podstawie nazwy widoku 'article' i argumentu slug
-        return reverse('project_details', kwargs={'slug': self.slug, 'project_id': self.id})
+        lang = get_language()
+        translated_slug = getattr(self, f'slug_{lang}', self.slug)
+        return reverse('project_details', kwargs={'slug': translated_slug})
+
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

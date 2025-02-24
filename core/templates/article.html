@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="col-xl-8">
   <div class="card content-box-card">
@@ -9,20 +10,20 @@
           <img src="{{article.image.url}}" alt="blog-img-1" class="img-fluid w-100">
         </div>
         <ul class="list-unstyled article-tags">
-          <li>{{article.reading_time}} min read</li>
-          <li>{{article.uploaded_at}}</li>
+          <li>{{article.reading_time}} {% trans 'min read' %}</li>
+          <li>{{article.uploaded_at|date:"j F Y H:i"}}</li>
         </ul>
         <div class="article-details-text">
           <h3 class="main-title">{{article.title}}</h3>
           {{article.content|safe}}
           <div class="tags-and-share">
             <div class="tags">
-              <h3 class="title">Category:</h3>
+              <h3 class="title">{% trans 'Category' %}: </h3>
               <ul class="list-unstyled">
-                <li><a href="#">{{article.category}}</a></li>
+                <li><a href="#">{% trans article.category %}</a></li>
               </ul>
             </div>
-            <div class="share">
+            <div class="share d-none">
               <h3 class="title">Share:</h3>
               <div class="social-media-icon mt-0">
                 <ul class="list-unstyled">
@@ -35,7 +36,7 @@
             </div>
           </div>
             <div class="related-post">
-              <h2 class="main-common-title">Related Post</h2>
+              <h2 class="main-common-title">{% trans 'Related Post' %}</h2>
               <div class="row g-4">
                 {% for article in related_posts %} 
                 <div class="col-md-6">
@@ -44,13 +45,13 @@
                       <a href="{{ article.get_absolute_url }}" class="d-block w-100">
                         <img src="{{article.image.url}}" alt="blog-img-2" class="img-fluid w-100">
                       </a>
-                      <a href="article.html" class="tags">{{article.category}}</a>
+                      <a href="article.html" class="tags">{% trans article.category %}</a>
                     </div>
                     <div class="text">
                       <a href="{{ article.get_absolute_url }}" class="title">{{article.title}}</a>
                       <ul class="list-unstyled">
                         <li>{{article.reading_time}} min read</li>
-                        <li>{{article.uploaded_at}}</li>
+                        <li>{{article.uploaded_at|date:"j F Y H:i"}}</li>
                       </ul>
                     </div>
                   </div>
@@ -59,26 +60,26 @@
               </div>
             </div>
           <div class="leave-comments-area">
-            <h3 class="main-title">Comments</h3>
+            <h3 class="main-title m-3">{% trans 'Comments' %}</h3>
             <div class="comments-box-comment">
               {% for comment in comments %}
                 <div class="user-comment">
                   <p class="comment">{{comment.message}}</p>
                   <ul class="list-unstyled">
                     <li>{{comment.name}}</li>
-                    <li>{{comment.uploaded_at}}</li>
+                    <li>{{comment.uploaded_at|date:"j F Y H:i"}}</li>
                   </ul>
                 </div>
               {% endfor %}
             </div>
-            <h2 class="main-common-title">Leave a Comment</h2>
+            <h2 class="main-common-title m-3">{% trans 'Leave a Comment' %}</h2>
             <div class="comments-box">
               <form id="comment-form"  method="POST" action="{{ article.get_absolute_url }}">
                 {% csrf_token %}
                 <div class="row gx-3">
                   <div class="col-md-6">
                     <div class="mb-4">
-                      <label class="form-label">Name*</label>
+                      <label class="form-label">{% trans 'Name*' %}</label>
                       {{ form.name }}
                     </div>
                   </div>
@@ -90,13 +91,13 @@
                   </div>
                   <div class="col-md-12">
                     <div class="mb-4">
-                      <label class="form-label">Comment*</label>
+                      <label class="form-label">{% trans 'Comment*' %}</label>
                       {{form.message}}
                     </div>
                   </div>
                   <div class="col-md-12">
                     <button class="submit-btn" type="submit">
-                      Post Comment
+                      {% trans 'Post Comment' %}
                       <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.5 11.6665V6.6665H12.5" stroke="white" stroke-width="1.5"

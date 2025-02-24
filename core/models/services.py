@@ -6,21 +6,18 @@ class ServicesTitle(models.Model):
         verbose_name = "Service title"  
         verbose_name_plural = "Service title"
 
-    title = models.CharField(
-        verbose_name='Title',
-        max_length=60,
-    )
-
-    description = CKEditor5Field(
+    serv_desc = models.TextField(
         verbose_name='Description',
-        max_length=1600
+        max_length=1600,
+        null=True
     )
 
 
 class Service(models.Model):
     name = models.CharField(
         verbose_name='Service name',
-        max_length=30,
+        max_length=40,
+
     )
 
     image = models.FileField(

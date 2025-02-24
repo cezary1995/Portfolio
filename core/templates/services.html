@@ -1,15 +1,15 @@
 {% extends "base.html" %} 
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="col-xl-8">
   <div class="card content-box-card">
     <div class="card-body">
       <div class="top-info">
         <div class="text">
-          <h1 class="main-title">{{title.title}}</h1>
-          <p>{{title.description|safe}}</p>
+          <h1 class="main-title">{% trans "Services I Offered" %}</h1>
+          <p>{{title.serv_desc|safe}}</p>
         </div>
-        
       </div>
       <div class="services">
         <div class="row g-4">
@@ -20,7 +20,7 @@
                 <img src="{{ service.image.url }}" alt="{{service.name}}">
               </div>
               <div class="text">
-                <h3 class="title">{{service.name}}</h3>
+                <h3 class="title">{% trans service.name %}</h3>
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="frequently-asked-questions">
-        <h2 class="main-common-title">Frequently Asked Questions
+        <h2 class="main-common-title">{% trans "Frequently Asked Questions" %}
         </h2>
         <div class="frequently-asked-questions-main">
           <div class="accordion" id="accordionExample">

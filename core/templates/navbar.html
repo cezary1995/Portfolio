@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="navbar">
     <div class="container">
       <div class="menu-container">
@@ -12,7 +13,7 @@
                   <path d="M10.9753 10.1665C9.13359 11.2773 6.14859 11.2773 4.30859 10.1665" stroke-width="1.4"
                     stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <span>Home</span>
+                {% trans "Home" %}
               </a>
             </li>
             <li class="nav-item">
@@ -28,7 +29,7 @@
                     d="M4 15.7085V15.6668C4 14.7828 4.35119 13.9349 4.97631 13.3098C5.60143 12.6847 6.44928 12.3335 7.33333 12.3335H10.6667C11.5507 12.3335 12.3986 12.6847 13.0237 13.3098C13.6488 13.9349 14 14.7828 14 15.6668V15.7085"
                     stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                About
+                {% trans 'About' %}
               </a>
             </li>
             <li class="nav-item">
@@ -41,7 +42,7 @@
                   <path d="M1.33301 11.3335L7.99967 14.6668L14.6663 11.3335" stroke-width="1.4"
                     stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                Services
+                {% trans 'Services' %}
               </a>
             </li>
             <li class="nav-item">
@@ -57,7 +58,7 @@
                     d="M15.6663 3C15.8863 3.09333 16.0997 3.18083 16.3063 3.2625C16.5098 3.34882 16.6706 3.51241 16.7534 3.71729C16.8362 3.92217 16.8343 4.15155 16.748 4.355L14.833 8.83334"
                     stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                Works
+                {% trans 'Works' %}
               </a>
             </li>
             <li class="nav-item">
@@ -70,7 +71,7 @@
                     d="M13.0004 15.3335L15.7921 12.5968C15.9633 12.4307 16.0995 12.232 16.1926 12.0124C16.2857 11.7927 16.3339 11.5567 16.3343 11.3181C16.3347 11.0796 16.2873 10.8434 16.1948 10.6235C16.1024 10.4035 15.9669 10.2044 15.7963 10.0377C15.448 9.69712 14.9806 9.50602 14.4935 9.50509C14.0065 9.50415 13.5383 9.69346 13.1888 10.0327L13.0021 10.216L12.8163 10.0327C12.4681 9.69237 12.0008 9.50143 11.5139 9.50049C11.0271 9.49956 10.5591 9.68871 10.2096 10.0277C10.0383 10.1937 9.9021 10.3924 9.80891 10.612C9.71572 10.8316 9.66746 11.0677 9.667 11.3062C9.66653 11.5447 9.71386 11.781 9.80619 12.0009C9.89853 12.2209 10.034 12.4201 10.2046 12.5868L13.0004 15.3335Z"
                     stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                Blog
+                {% trans 'Blog' %}
               </a>
             </li>
             <li class="nav-item">
@@ -84,8 +85,29 @@
                     d="M14 1.3335C14.663 1.3335 15.2989 1.59689 15.7678 2.06573C16.2366 2.53457 16.5 3.17045 16.5 3.8335V10.5002C16.5 11.1632 16.2366 11.7991 15.7678 12.2679C15.2989 12.7368 14.663 13.0002 14 13.0002H9.83333L5.66667 15.5002V13.0002H4C3.33696 13.0002 2.70107 12.7368 2.23223 12.2679C1.76339 11.7991 1.5 11.1632 1.5 10.5002V3.8335C1.5 3.17045 1.76339 2.53457 2.23223 2.06573C2.70107 1.59689 3.33696 1.3335 4 1.3335H14Z"
                     stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                Contact
+                {% trans 'Contact' %}
               </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                lang
+              </a>
+              <ul class="dropdown-menu">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as langs %}
+            
+                {% for lang in langs %}
+                  <li>
+                    <form action="{% url 'set_language' %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="language" value="{{ lang.code }}">
+                      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                      <button type="submit" class="dropdown-item">{{ lang.name_local }}</button>
+                    </form>
+                  </li>
+                {% endfor %}
+              </ul>
             </li>
           </ul>
           <div class="header-right-info d-flex align-items-center">
@@ -132,7 +154,7 @@
               </span>
             </button>
             <a href="{% url 'contact' %}" class="lets-talk-btn">
-              Let's Talk
+              {% trans "Let's Talk" %}
               <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.5 11.6665V6.6665H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"

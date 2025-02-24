@@ -297,6 +297,11 @@ p {
 	display: inline-block;
 }
 
+.header-area .navbar-info .nav-item dropdown{
+	position: relative;
+	display: inline-block;
+}
+
 .header-area .navbar-info .nav-link {
 	color: var(--light-black);
 	font-size: 16px;
@@ -672,11 +677,13 @@ p {
 
 .work-experiance-card .work-experiance-slider li .date {
 	margin-right: 40px;
+	align-items: center;
+	justify-content: center;
 }
 
 .work-experiance-card .work-experiance-slider li .date p {
 	font-size: 14px;
-	font-weight: 500;
+	font-weight: 300;
 	color: var(--light-black);
 }
 

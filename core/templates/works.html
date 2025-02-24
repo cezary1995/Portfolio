@@ -1,13 +1,14 @@
 {% extends "base.html" %} 
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="col-xl-8">
   <div class="card content-box-card">
     <div class="card-body portfolio-card">
       <div class="top-info">
         <div class="text">
-          <h1 class="main-title">{{title.title}}</h1>
-          <p>{{title.description|safe}}</p>
+          <h1 class="main-title">{% trans 'Check Out My Latest Projects' %}</h1>
+          <p>{{title.desc| safe}}</p>
         </div>
       </div>
       <div class="portfolio-area">
@@ -28,7 +29,7 @@
               <div class="text">
                 <div class="info">
                   <a href="{{ project.get_absolute_url }}" class="title">{{ project.name }}</a>
-                  <p class="subtitle">{{ project.description|safe|slice:":250" }}
+                  <p class="subtitle">{{ project.trans_overview }}
                     {% if project.description|length > 250 %}
                      <a href="{{ project.get_absolute_url }}" class="fw-bold">... read full article</a>
                     {% endif %}

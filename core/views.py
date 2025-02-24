@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.utils.timezone import now
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.core import is_ratelimited
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.utils.translation import get_language
+
 from .utils import get_paginator_data
 from .models.index import (
     MyExpertArea,WorkExperience, 
@@ -30,6 +32,7 @@ from .models.contact import(
 
 from .forms import UserMessageForm, UserArticleCommentForm
 
+
 def index(request):
     expert_area = MyExpertArea.objects.all()
     work_experience = WorkExperience.objects.all()
@@ -44,6 +47,7 @@ def index(request):
        'services': services,
        'projects': projects,
     }
+
     return render(request, 'index.html', context)
 
 
@@ -73,7 +77,8 @@ def services(request):
        'services': services,
        'questions': asked_questions,
        'title': title,
-       'slider': slider
+       'slider': slider,
+       'url': reverse('contact')
     }
     return render(request, 'services.html', context)
 
@@ -96,18 +101,19 @@ def works(request):
     return render(request, 'works.html', context)
 
 
-def project_details(request, slug, project_id):
-    project = get_object_or_404(Project, slug=slug, id=project_id)
+def project_details(request, slug):
+    project = get_object_or_404(Project, slug=slug)
     slider = SliderText.objects.filter(view='works').first()
-    other_projects = Project.objects.exclude(id=project_id).order_by('?')[:2]
+    # Select two random projects
+    other_projects = Project.objects.exclude(slug=slug).order_by('?')[:2]
 
     context = {
         'project': project,
         'other_projects': other_projects,
         'slider': slider,
-        'url': ''
     }
     return render(request, 'project_details.html', context)
+
 
 def blog(request):
     title = BlogTitle.objects.first()
@@ -167,15 +173,15 @@ def contact(request):
     # Check if requests limit has been reached 
     if is_ratelimited(request, fn=contact, key='ip', rate='2/m', method='POST', increment=True):
         return JsonResponse(
-                {'responseText': 'Too many requests, wait one minute before send message again.'}, status=429
+                {'responseText': _('Too many requests, wait one minute before send message again.')}, status=429
                 )
 
     if request.method == 'POST':
         form = UserMessageForm(request.POST)
         if form.is_valid():
             form.save()
-            return JsonResponse({'responseText': 'Message has been sent successfully'})
-        return JsonResponse({'responseText': 'Make sure every field is filled in'})
+            return JsonResponse({'responseText': _('Message has been sent successfully')})
+        return JsonResponse({'responseText': _('Make sure every field is filled in')})
     else:
         form = UserMessageForm()
 
@@ -185,3 +191,5 @@ def contact(request):
         
     }
     return render(request, 'contact.html', context)
+
+

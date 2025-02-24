@@ -14,9 +14,10 @@ class AboutMe(models.Model):
         max_length=60,
     )
 
-    content = CKEditor5Field(
+    content = models.TextField(
         verbose_name='Informations about',
         max_length=1000,
+        null=True
         )
 
     def __str__(self):

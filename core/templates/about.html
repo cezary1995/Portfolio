@@ -1,20 +1,20 @@
 {% extends "base.html" %} 
 {% load static %}
 {% load custom_tags %}
+{% load i18n %}
 {% block content %}
 <div class="col-xl-8">
   <div class="card content-box-card">
     <div class="card-body">
       <div class="top-info">
         <div class="text">
-          <h5 class="main-title">My name is <span>{{ about_me.name }}</span></h5>
-          {{about_me.content|safe}}
+          <h5 class="main-title">{% trans 'My name is' %} <span>{{ about_me.name }}</span></h5>
+              <p>{{about_me.content}}</p>
         </div>
       </div>
       <div class="client-feedback">
         {% if trusted > 0 %}
-          <h2 class="main-common-title">Trusted By <span>{{trusted}}</span> Clients</h2>
-        
+          <h2 class="main-common-title">{% trans 'Trusted clients' %}: <span>{{trusted}}</span> </h2>
         <div class="row client-feedback-slider">
           {% for review in reviews %}
           <div class="col-lg-6">
@@ -32,14 +32,14 @@
                   {{ review.truncated_content }}
                   <br>
                   {% if review.content|length > 400 %}
-                    <button type="button" class="btn btn-dark btn-sm mt-2" onclick="toggleContent('{{ forloop.counter }}')">Show more</button>
+                    <button type="button" class="btn btn-dark btn-sm mt-2" onclick="toggleContent('{{ forloop.counter }}')">{% trans 'Show more' %}</button>
                   {% endif %}
                 </p>
                 <p class="full-content" id="full-{{ forloop.counter }}" style="display: none;">
                   {{ review.content }}
                   <br>
-                  <button type="button" class="btn btn-dark btn-sm" onclick="toggleContent('{{forloop.counter}}')">Show less</button>
-              </p>
+                  <button type="button" class="btn btn-dark btn-sm" onclick="toggleContent('{{forloop.counter}}')">{% trans 'Show less' %}</button>
+                </p>
               </div>
               <div class="designation">
                 <p><span>{{review.reviewer}}</span> - Product Designer</p>

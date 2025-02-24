@@ -14,13 +14,7 @@ RATES = [
         (1, '1 - Below expectations '),
 ]
 
-CATEGORIES = [
-    ('sport', 'Sport'),
-    ('business', 'Business'),
-    ('technology', 'Technology'),
-    ('health', 'Health'),
-    ('entertainment', 'Entertainment'),
-]
+
 
 VIEWS = [
     ('about', 'about'),
@@ -31,6 +25,7 @@ VIEWS = [
 
 
 from django.core.paginator import Paginator
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 
 def get_paginator_data(request, query_set, obj_per_page, max_page_links=3):
@@ -61,3 +56,10 @@ def get_paginator_data(request, query_set, obj_per_page, max_page_links=3):
     }
     
     return paginator_data
+
+
+def change_text_field_to_ck(fields: tuple, field: str) -> None:
+    for lang in ('en', 'pl'):
+            field_name = f'{field}_{lang}'
+            if field_name in fields:
+                fields[field_name].widget = CKEditor5Widget()

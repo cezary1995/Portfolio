@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,10 +8,7 @@
   <title>Index</title>
   <meta name="description" content="Bentofolio - Bootstrap Personal Portfolio Template">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
- 
   <!-- Place favicon.ico in the root directory -->
-
   <!-- CSS here -->
   <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/fontawsome/css/all.min.css' %}">
@@ -20,9 +18,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
 </head>
-
 <body>
-
   <div id="page-content">
     <!-- header part start -->
     <header class="header-area">
@@ -43,8 +39,8 @@
                   {% endif %}
                   </div> 
                   <div class="text">
-                    <h5 class="main-title">My name is <span>{{name}}</span></h5>
-                    <p>{{short_desc|safe}}</p>
+                    <h5 class="main-title">{% trans "My name is" %} <span>{{name}}</span></h5>
+                    <p>{{ short_desc|safe }}</p>
                     <div class="common-button-groups">
                       <a class="btn btn-call" href="{% url 'contact' %}">
                         <svg class="icon" width="25" height="24" viewBox="0 0 25 24" fill="none"
@@ -58,7 +54,7 @@
                           <path d="M15.5 3C17.0913 3 18.6174 3.63214 19.7426 4.75736C20.8679 5.88258 21.5 7.4087 21.5 9"
                             stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        Contact
+                        {% trans 'Contact' %}
                       </a>
                       <button class="btn btn-copy" data-clipboard-text='{{ email }}'>
                         <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -70,7 +66,7 @@
                             d="M16 8V6C16 5.46957 15.7893 4.96086 15.4142 4.58579C15.0391 4.21071 14.5304 4 14 4H6C5.46957 4 4.96086 4.21071 4.58579 4.58579C4.21071 4.96086 4 5.46957 4 6V14C4 14.5304 4.21071 15.0391 4.58579 15.4142C4.96086 15.7893 5.46957 16 6 16H8"
                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        Copy Email
+                        {% trans 'Copy Email' %}
                       </button>
                     </div>
                     <div class="social-media-icon">
@@ -83,7 +79,6 @@
                         {% endfor %}
                       </ul>
                     </div>
-                    
                   </div>
                 </div>
               </div>

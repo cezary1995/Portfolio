@@ -2,7 +2,7 @@ from django import forms
 from .models.contact import UserMessage
 from .models.blog import BlogComment
 from django.utils.timezone import now
-
+from django.utils.translation import gettext_lazy as _
 
 class UserMessageForm(forms.ModelForm):
     class Meta:
@@ -13,35 +13,35 @@ class UserMessageForm(forms.ModelForm):
             'name': forms.TextInput(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Enter your name'
+                    'placeholder': _('Enter your name')
                     }
                 ),
 
             'email': forms.EmailInput(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Enter your e-mail'
+                    'placeholder': _('Enter your e-mail')
                     }
                 ),
 
             'phone': forms.TextInput(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Phone number - optional'
+                    'placeholder': _('Phone number - optional')
                     }
                 ),
 
             'subject': forms.TextInput(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Subject'
+                    'placeholder': _('Subject')
                     }
                 ),
                 
             'message': forms.Textarea(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Type message here...'
+                    'placeholder': _('Type message here...')
                     }
                 ),
         }
@@ -55,21 +55,21 @@ class UserArticleCommentForm(forms.ModelForm):
             'name': forms.TextInput(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Enter your name'
+                    'placeholder': _('Enter your name')
                     }
                 ),
 
             'email': forms.EmailInput(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Enter your e-mail'
+                    'placeholder': _('Enter your e-mail')
                     }
                 ),
 
             'message': forms.Textarea(
                 attrs={
                     'class': 'form-control shadow-none', 
-                    'placeholder': 'Type message here...'
+                    'placeholder': _('Type message here...')
                     }
                 ),
         }

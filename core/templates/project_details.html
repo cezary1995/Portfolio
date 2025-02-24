@@ -11,7 +11,8 @@
         <div class="portfolio-details-text">
           <div class="overview">
             <h3 class="card-title">"{{project.name}}" - overview:</h3>
-            <p>{{project.description|safe}}</p>
+            <p>{{project.proj_desc|safe}}</p>
+            <a href="{{url}}">url</a>
           </div>
         </div>
         <h3 class="card-title">Other projects</h3>
@@ -26,6 +27,7 @@
               </div>
                   <a href="{{ project.get_absolute_url }}"><p>{{ project.name }}</p></a>
             </div>
+          </div>
           </div>
           {% endfor %}
         </div>
